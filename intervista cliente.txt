@@ -1,0 +1,46 @@
+1) programma vip acquistabile solo attraverso aggiungimento di punti
+2) ogni carta ha diversi livelli che, che concedono diversi benefit
+3) il meccanismo di rewarding deve essere flessibile (premi, bonus per il prossimo acquisto, etc...)
+4) gestione delle carte deve essere in termini di livelli, di rewarding e ...
+5) il concetto di carta è un'entità centrale nel progetto. gira tutto attorno ad essa
+6) l'idea è di avere una carta generata da un piattaforma che può essere associata a una o più punti vendita
+7) si acquisiscono punti facendo acquisti nei punti vendita confederati
+8) i benefici della carta sono accedibili su tutti i punti vendita confederati
+9) membership vip è diverso da programma fedeltà. non so se ho capito bene ma quello vip sarebbe la carta premium mentre la fedeltà ha dei livelli
+10) punto importante dal cliente: lo scopo è di avere una presenza il più possibile con il possesore di una carta offrendo il più numero di servizi possibile
+11) la piattaforma deve potersi integrare con software di ristoranti o bar (che fanno scontrini) oppure in modo indipendente. però come? conviene avere un API a cui chi aderisce alla piattaforma si deve collegare. l'alternativa non è fattibile (n API per n aderenti)
+12) deve essere possibile registrarsi al piattaforma in modi diversi: QR code o codice bar generata dal piattaforma che conduce al formulario da compilare, nome e cognome, numero di telefono
+13) quando un cliente si registra nella piattaforma aderirà ad un programma fedeltà che sarà decisa dal propietario del punto vendita (può essere a livello o a punti)
+14) si deve poter messaggiare i clienti (quindi un contatto - numero telefono, email o indirizzo)
+15) si deve poter pubblicizzare nel piattaforma i punti vendita aderenti alla piattaforma??
+16) i clienti con carta fedeltà possono acquistare sia in negozi fisici che e-commerce senza perdere di benefici. quindi il piattaforma deve collegare i due
+17) il numero di livelli è deciso dal proprietario del punto vendita
+18) il VIP si acquisisce scalando dei punti (contraddizione con punto 1)
+19) il piattaforma si tiene conto dei punti/livelli del cliente e il punto vendita decide come fargli avvalersi dei benefici di questi punti
+20) un cliente può avere più di una carta
+21)
+22)
+23)
+24)
+
+
+
+
+
+
+
+
+
+
+
+Polini
+1) ci sarà uno gestore della piattaforma
+2) sulla piattaforma si potranno registrare i punti vendita
+3) c'è la possibilità che più punti vendita si consorziano per offrire una gamma di servizi più ampia
+4) il negozio che si aderisce alla piattaforma deve pagare una fee/tassa
+5) gli attori principali sono: il gestore della piattaforma che erroga le carte, i punti vendita che si consorziano e i clienti consumatori.
+6) il programma fedeltà può essere a singolo negozio o a confederazione
+7) la piattaforma propone i pattern (numero di livelli e altre informazioni. possono essere anche configurabili)
+8)
+9)
+10)
