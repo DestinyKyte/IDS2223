@@ -52,6 +52,8 @@ TITOLARE
    * imposta il programma fedelta’
    * pubblica il programma fedelta’
   )
+* il titolare crea un catalogo premi
+* il titolare pubblica un catalogo premi e lo associa ad un programma fedelta'
 * il titolare accede ad un programma fedelta’ e riproduce il suo qr code
 * ⁓il titolare crea una campagna pubblicitaria (
    * Il titolare sceglie il negozio
