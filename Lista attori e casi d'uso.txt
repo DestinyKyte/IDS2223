@@ -24,8 +24,15 @@ POSSIBILI
 
 LISTA CASI D’USO
 CONSUMATORE
-* il consumatore si registra alla piattaforma + possibilità ma non necessità di registrazione a programma di fedeltà
-* il consumatore fa il login alla piattaforma
+* Il consumatore si registra alla piattaforma(
+	* Specifica di essere un consumatore.
+	* Inserisce i suoi dati personali.
+	* Imposta username e password per effettuare il login.
+)
+* Il consumatore fa il login alla piattaforma(
+	* Inserimento credenziali.
+		* Indirizzamento pagina Consumatore.
+)
 * ⁓il consumatore si registra ad un programma fedeltà
 * il consumatore utilizza il modulo referal/referenza. il consumatore genera un link per invitare nuovi consumatori all’app. il link generato dovrà consentire di scaricare l’app, altrimenti procedi alla registrazione ad un programma fedeltà
 * il consumatore da un feedback/recensione ai programmi fedeltà, ai negozi e alla user experience della piattaforma
@@ -33,6 +40,21 @@ CONSUMATORE
 * il consumatore visualizza i messaggi ricevuti
 * il consumatore interagisce con l’assistenza
 * il consumatore compra un programma fedelta’
+* ⁓Il consumatore effettua un acquisto in un negozio fisico(
+	* Il consumatore passa la carta al cassiere.
+	* Il sistema riceve le informazioni dell'acquisto.
+	* Il sistema restituisce un feedback.
+	* Il consumatore paga l'importo.
+	* Il sistema aggiorna i dati all'interno del database.
+)
+* ⁓Il consumatoe effettua un acquisto in un negozio virtuale(
+			Nota = Il consumatore effettua il login, o prima o dopo.
+	* Il consumatore riempie il carello virtuale.
+	* Il sistema riceve le informazioni dell'acquisto.
+	* Il sistema restituisce un feedback.
+	* Il consumatore paga l'importo.
+	* Il sistema aggiorna i dati all'interno del database 
+)
 POSSIBILI
 * il cliente effettua una ricerca per negozi
 * il cliente effettua una ricerca per programmi
@@ -42,9 +64,24 @@ POSSIBILI
 
 
 TITOLARE
-* inserisce le informazioni per il pagamento dell’abbonamento
+* Il titolare effettua la registrazione(
+	* Specifica di essere un titolare.
+	* Specifica di avere almeno due negozi ed inserisce le lora informazioni.
+	* Inserisce le sue informazioni personali.
+	* Imposta username e password.
+	* Paga il servizio della piattaforma.
+)
+* Il titolare fa il login alla piattaforma(
+	* Inserimento credenziali.
+		* Indirizzamento pagina Titolare.
+)
+* ⁓Il titolare paga il servizio della piattaforma(
+	* Il sistema invia i dati della transazione all'API del PSP(payment service provider).
+	* Il sistema riceve l'esito e lo comunica al titolare.
+	* Il sistema aggiorna il database[fatture].
+)
 * il titolare crea profili (amministratore/…) specificando i loro privilegi
-* il titolare scarica le fatture (con l’app/con il sistema di messaggistica)
+* ⁓Il titolare scarica le fatture (con l’app/con il sistema di messaggistica)
 * ⁓il titolare crea un negozio (inserisce le info del negozio, termini legali, link Google My Business per lasciare una recensione, delle immagini)
 * il titolare aggiorna il profilo del negozio
 * ⁓il titolare crea un programma fedelta’ (
@@ -64,7 +101,7 @@ TITOLARE
 * il titolare fa una ricerca per consumatore (e potra’ vedere alcune info)
 * il titolare visualizza le statistiche (sia del negozio che del programma fedelta’ (numero visite dei clienti))
 * il titolare esporta le statistiche
-* il titolare crea un programma fedelta’ a consorzio (
+* ⁓il titolare crea un programma fedelta’ a consorzio (
    * fuori dall’app: i titolari di piu’ negozi si sono accordati per un programma fedelta’ comune
    * il titolare inizia la procedura per creare un nuovo programma fedelta’ (le opzioni sono a negozio o consorzio)
    * il titolare seleziona il tipo consorzio 
@@ -75,12 +112,14 @@ TITOLARE
    * il sistema notifica tutti i membri del consorzio spedendo loro i dettagli del programma fedelta’ ancora inattivo
    * se e quando tutti i membri confermano la proposta il programma viene pubblicato (visibile ai consumatori e ad altri titolari)
   )
-* il titolare (principale, quello che ha creato il consorzio) accetta/nega le richieste di partecipazione al consorzio da parte di titolari esterni al consorzio (dopo la conferma fuori dall’app degli altri membri)
+* ⁓il titolare (principale, quello che ha creato il consorzio) accetta/nega le richieste di partecipazione al consorzio da parte di titolari esterni al consorzio (dopo la conferma fuori dall’app degli altri membri)
 * il titolare fa una ricerca per consorzio
-* il titolare chiede di unirsi ad un consorzio
+* ⁓il titolare chiede di unirsi ad un consorzio
 * il titolare invia messaggi personalizzati
 * il titolare imposta messaggi automatici (benvenuto…)
 * il titolare crea degli eventi sul calendario nei quali viene spedito un certo messaggio/notifica automatico (reminder sconti…) 
 
 
 NOTA: gestione del negozio online (site tracking)
+
+PIU ATTORI
