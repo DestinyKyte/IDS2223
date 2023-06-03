@@ -24,36 +24,37 @@ POSSIBILI
 
 LISTA CASI D’USO
 CONSUMATORE
-* Il consumatore si registra alla piattaforma(
-	* Specifica di essere un consumatore.
-	* Inserisce i suoi dati personali.
-	* Imposta username e password per effettuare il login.
+* ~ il consumatore si registra alla piattaforma(
+	* Specifica di essere un consumatore
+	* Inserisce i suoi dati personali
+	* Imposta username e password per effettuare il login
 )
-* Il consumatore fa il login alla piattaforma(
-	* Inserimento credenziali.
-		* Indirizzamento pagina Consumatore.
+* il consumatore fa il login alla piattaforma(
+	* Inserimento credenziali
+		* Indirizzamento pagina Consumatore
 )
 * ⁓il consumatore si registra ad un programma fedeltà
+* ~il consumatore scarica la fattura del pagamento del programma premium
 * il consumatore utilizza il modulo referal/referenza. il consumatore genera un link per invitare nuovi consumatori all’app. il link generato dovrà consentire di scaricare l’app, altrimenti procedi alla registrazione ad un programma fedeltà
 * il consumatore da un feedback/recensione ai programmi fedeltà, ai negozi e alla user experience della piattaforma
 * il consumatore visualizza/interagisce con i dati del proprio profilo (email, dati personali, programmi fedeltà a cui e’ iscritto [potrà anche vedere i coupon dei programmi da qui], notifiche ricevute, modifica dati)
 * il consumatore visualizza i messaggi ricevuti
 * il consumatore interagisce con l’assistenza
-* il consumatore compra un programma fedelta’
-* ⁓Il consumatore effettua un acquisto in un negozio fisico(
-	* Il consumatore passa la carta al cassiere.
-	* Il sistema riceve le informazioni dell'acquisto.
-	* Il sistema restituisce un feedback.
-	* Il consumatore paga l'importo.
-	* Il sistema aggiorna i dati all'interno del database.
+* ~il consumatore compra un programma fedelta’
+* ⁓il consumatore effettua un acquisto in un negozio fisico(
+	* il consumatore passa la carta al cassiere
+	* il sistema riceve le informazioni dell'acquisto
+	* il sistema restituisce un feedback
+	* il consumatore paga l'importo
+	* il sistema aggiorna i dati all'interno del database
 )
-* ⁓Il consumatoe effettua un acquisto in un negozio virtuale(
-			Nota = Il consumatore effettua il login, o prima o dopo.
-	* Il consumatore riempie il carello virtuale.
-	* Il sistema riceve le informazioni dell'acquisto.
-	* Il sistema restituisce un feedback.
-	* Il consumatore paga l'importo.
-	* Il sistema aggiorna i dati all'interno del database 
+* ⁓il consumatoe effettua un acquisto in un negozio virtuale(
+			Nota = Il consumatore effettua il login, o prima o dopo
+	* il consumatore riempie il carello virtuale
+	* il sistema riceve le informazioni dell'acquisto
+	* il sistema restituisce un feedback
+	* il consumatore paga l'importo
+	* il sistema aggiorna i dati all'interno del database 
 )
 POSSIBILI
 * il cliente effettua una ricerca per negozi
@@ -64,21 +65,21 @@ POSSIBILI
 
 
 TITOLARE
-* Il titolare effettua la registrazione(
-	* Specifica di essere un titolare.
-	* Specifica di avere almeno due negozi ed inserisce le lora informazioni.
-	* Inserisce le sue informazioni personali.
-	* Imposta username e password.
-	* Paga il servizio della piattaforma.
+* ~il titolare effettua la registrazione(
+	* specifica di essere un titolare
+	* specifica di avere almeno due negozi ed inserisce le lora informazioni
+	* inserisce le sue informazioni personali
+	* imposta username e password
+	* paga il servizio della piattaforma
 )
 * Il titolare fa il login alla piattaforma(
 	* Inserimento credenziali.
 		* Indirizzamento pagina Titolare.
 )
-* ⁓Il titolare paga il servizio della piattaforma(
-	* Il sistema invia i dati della transazione all'API del PSP(payment service provider).
-	* Il sistema riceve l'esito e lo comunica al titolare.
-	* Il sistema aggiorna il database[fatture].
+* ⁓il titolare paga il servizio della piattaforma(
+	* Il sistema invia i dati della transazione all'API del PSP(payment service provider)
+	* Il sistema riceve l'esito e lo comunica al titolare
+	* Il sistema aggiorna il database[fatture]
 )
 * il titolare crea profili (amministratore/…) specificando i loro privilegi
 * ⁓Il titolare scarica le fatture (con l’app/con il sistema di messaggistica)
@@ -93,9 +94,9 @@ TITOLARE
 * il titolare pubblica un catalogo premi e lo associa ad un programma fedelta'
 * il titolare accede ad un programma fedelta’ e riproduce il suo qr code
 * ⁓il titolare crea una campagna pubblicitaria (
-   * Il titolare sceglie il negozio
-   * Il titolare crea una nuova campagna pubblicitaria
-   * Il titolare imposta la campagna (metodo di comunicazione, target, messaggio)
+   * il titolare sceglie il negozio
+   * il titolare crea una nuova campagna pubblicitaria
+   * il titolare imposta la campagna (metodo di comunicazione, target, messaggio)
    * il titolare pubblica la campagna (a tutti quelli in relazione con un negozio)
   )
 * il titolare fa una ricerca per consumatore (e potra’ vedere alcune info)
