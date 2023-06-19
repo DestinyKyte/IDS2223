@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name = "cashback_loyalty_program")
+@Table(name = "cashbackloyaltyprogram")
 @AllArgsConstructor
 @NoArgsConstructor
 public class CashbackLoyaltyProgram extends LoyaltyProgram {

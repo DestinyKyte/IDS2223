@@ -3,7 +3,7 @@ package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.levelProgram;
 import jakarta.persistence.*;
 
 @Entity(name = "level")
-public class Level {
+public class Level{
     @Id
     private Long id;
 

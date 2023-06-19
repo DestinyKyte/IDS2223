@@ -1,29 +1,31 @@
 package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.levelProgram;
 
+import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.LoyaltyProgram;
 import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.supportClasses.ProgramType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "levelprogram")
-public class LevelLoyaltyProgram {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Long id;
-    /*  @OneToMany(cascade = CascadeType.ALL)
-      //@JoinColumn(columnDefinition = "CHAR(20)")
-      private List<ProgramRatio> ratios;*/
-    @OneToMany()
-    //@JoinColumn()
-    private List<Level> levels;
+@Table(name = "levelloyaltyprogram")
+@NoArgsConstructor
+@AllArgsConstructor
+public class LevelLoyaltyProgram extends LoyaltyProgram {
 
-    public Long getId() {
-        return id;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Level> levels;
+
+
+    //#region GETTERS AND SETTERS METHOD
+    public Set<Level> getLevels() {
+        return levels;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLevels(Set<Level> levels) {
+        this.levels = levels;
     }
+    //#endregion
 }

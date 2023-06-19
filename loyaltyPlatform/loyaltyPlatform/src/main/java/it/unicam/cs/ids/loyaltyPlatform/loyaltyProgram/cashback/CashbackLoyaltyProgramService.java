@@ -1,46 +1,42 @@
 package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.cashback;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.stereotype.Service;
 
-import java.net.http.HttpClient;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
-@Component
+@Service
 public class CashbackLoyaltyProgramService {
-    @Autowired
-    CashbackLoyaltyProgramRepository cashbackLoyaltyProgramRepository;
+    private final CashbackLoyaltyProgramRepository cashbackLoyaltyProgramRepository;
+
+    public CashbackLoyaltyProgramService(CashbackLoyaltyProgramRepository cashbackLoyaltyProgramRepository) {
+        this.cashbackLoyaltyProgramRepository = cashbackLoyaltyProgramRepository;
+    }
 
     /**
      * Returns all {@link CashbackLoyaltyProgram} from a datasource.
-     *
      * @return all CashbackLoyaltyProgram.
      */
-    public Set<CashbackLoyaltyProgram> getAllPrograms() {
+    public Set<CashbackLoyaltyProgram> getAllPrograms(){
         Iterable<CashbackLoyaltyProgram> iterable = cashbackLoyaltyProgramRepository.findAll();
-        return StreamSupport.stream(iterable.spliterator(), false)
-                .collect(Collectors.toSet());
+        return StreamSupport.stream(iterable.spliterator(), false).collect(Collectors.toSet());
     }
 
     /**
      * Returns a {@link CashbackLoyaltyProgram} from a datasource.
-     *
      * @param id CashbackLoyaltyProgram path variable identifier.
      * @return a CashbackLoyaltyProgram.
      */
-    public Optional<CashbackLoyaltyProgram> getLoyaltyProgramByID(Long id) {
-        return cashbackLoyaltyProgramRepository.findById(id);
+    public Optional<CashbackLoyaltyProgram> getLoyaltyProgramByID(Long id){
+         return cashbackLoyaltyProgramRepository.findById(id);
     }
 
     /**
      * Creates a new {@link CashbackLoyaltyProgram} entry in a datasource.
-     *
      * @param cashbackLoyaltyProgram entry to be created.
      * @return newly created entry.
      */
@@ -50,31 +46,41 @@ public class CashbackLoyaltyProgramService {
 
     /**
      * updates a {@link CashbackLoyaltyProgram} in a datasource.
-     *
-     * @param id                     Path variable from Http.
+     * @param id Path variable from Http.
      * @param cashbackLoyaltyProgram new updated CashbackLoyaltyProgram to be saved.
      * @return the newly saved CashbackLoyaltyProgram.
      */
-    public Optional<CashbackLoyaltyProgram> updateCashbackProgram(Long id, CashbackLoyaltyProgram cashbackLoyaltyProgram) {
+    public ResponseEntity<CashbackLoyaltyProgram> updateCashbackProgram
+    (Long id, CashbackLoyaltyProgram cashbackLoyaltyProgram) {
         // I HAVE TO ASSIGN THE ID BEFORE SAVING IT ELSE IT WILL CREATE A NEW PROGRAM
         //WITH AUTO GENERATED ID.
+        if (!cashbackLoyaltyProgramRepository.existsById(id))
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(null);
         cashbackLoyaltyProgram.setId(id);
-        cashbackLoyaltyProgramRepository.findById(id)
-                .ifPresent(e -> cashbackLoyaltyProgramRepository.save(cashbackLoyaltyProgram));
-        return cashbackLoyaltyProgramRepository.findById(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(cashbackLoyaltyProgramRepository.save(cashbackLoyaltyProgram));
     }
 
 
     /**
-     * Deletes a {@link  CashbackLoyaltyProgram} entry from a datasource.
-     *
+     * Deletes a {@link  CashbackLoyaltyProgram} entry by means of its ID from a datasource.
      * @param id path variable from Http.
      * @return httpStatus.GONE if entry is found and deleted. Else httpStatus.NOT_FOUND.
      */
-    public ResponseEntity<String> deleteCashbackLoyaltyProgram(Long id) {
-        if (cashbackLoyaltyProgramRepository.findById(id).isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entity not found");
-        cashbackLoyaltyProgramRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.GONE).body("Entity deleted");
+    public ResponseEntity<CashbackLoyaltyProgram> deleteCashbackLoyaltyProgram(Long id) {
+        return cashbackLoyaltyProgramRepository.findById(id).map(cashbackLoyaltyProgram ->
+        {
+            cashbackLoyaltyProgramRepository.deleteById(id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(cashbackLoyaltyProgram);
+        }).orElse(
+                ResponseEntity
+                        .status(HttpStatus.NOT_FOUND)
+                        .body(null));
+
     }
 }
