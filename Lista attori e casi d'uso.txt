@@ -37,8 +37,8 @@ CONSUMATORE
 * ~il consumatore scarica la fattura del pagamento del programma premium
 * il consumatore utilizza il modulo referal/referenza. il consumatore genera un link per invitare nuovi consumatori all’app. il link generato dovrà consentire di scaricare l’app, altrimenti procedi alla registrazione ad un programma fedeltà
 * il consumatore da un feedback/recensione ai programmi fedeltà, ai negozi e alla user experience della piattaforma
-* il consumatore visualizza/interagisce con i dati del proprio profilo (email, dati personali, programmi fedeltà a cui e’ iscritto [potrà anche vedere i coupon dei programmi da qui], notifiche ricevute, modifica dati)
-* il consumatore visualizza i messaggi ricevuti
+* ~ il consumatore visualizza/interagisce con i dati del proprio profilo (email, dati personali, programmi fedeltà a cui e’ iscritto [potrà anche vedere i coupon dei programmi da qui], notifiche ricevute, modifica dati)
+* ~^il consumatore visualizza i messaggi ricevuti
 * il consumatore interagisce con l’assistenza
 * ~il consumatore compra un programma fedelta’
 * ⁓il consumatore effettua un acquisto in un negozio fisico(
@@ -81,10 +81,10 @@ TITOLARE
 	* Il sistema riceve l'esito e lo comunica al titolare
 	* Il sistema aggiorna il database[fatture]
 )
-* il titolare crea profili (amministratore/…) specificando i loro privilegi
+* ~^il titolare crea profili (amministratore/…) specificando i loro privilegi
 * ⁓Il titolare scarica le fatture (con l’app/con il sistema di messaggistica)
 * ⁓il titolare crea un negozio (inserisce le info del negozio, termini legali, link Google My Business per lasciare una recensione, delle immagini)
-* il titolare aggiorna il profilo del negozio
+* ~il titolare aggiorna il profilo del negozio
 * ⁓il titolare crea un programma fedelta’ (
    * sceglie il tipo (a punti, a livelli, consorzio…) di programma fedelta’
    * imposta il programma fedelta’
@@ -116,9 +116,9 @@ TITOLARE
 * ⁓il titolare (principale, quello che ha creato il consorzio) accetta/nega le richieste di partecipazione al consorzio da parte di titolari esterni al consorzio (dopo la conferma fuori dall’app degli altri membri)
 * il titolare fa una ricerca per consorzio
 * ⁓il titolare chiede di unirsi ad un consorzio
-* il titolare invia messaggi personalizzati
-* il titolare imposta messaggi automatici (benvenuto…)
-* il titolare crea degli eventi sul calendario nei quali viene spedito un certo messaggio/notifica automatico (reminder sconti…) 
+* ~^il titolare invia messaggi personalizzati
+* ~^il titolare imposta messaggi automatici (benvenuto…)
+* ~^il titolare crea degli eventi sul calendario nei quali viene spedito un certo messaggio/notifica automatico (reminder sconti…) 
 
 
 NOTA: gestione del negozio online (site tracking)
