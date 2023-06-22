@@ -17,7 +17,14 @@ public class UnionProgramService {
 
     public boolean createUnionProgram(List<FidelityProgram> fidelityProgramList) {
         UnionProgram unionProgram = new UnionProgram(fidelityProgramList);
-        return unionProgramRepository.save(unionProgram) != null;
+        if (unionProgram != null) {
+            unionProgramRepository.save(unionProgram);
+            CompletableFuture.runAsync(()-- > {
+
+                    });
+            return true;
+        }
+        return false;
     }
 
     public boolean modifyUnionProgram(int unionId, List<Owner> listOwner) {
@@ -46,19 +53,7 @@ public class UnionProgramService {
         return (List<UnionProgram>) unionProgramRepository.findAll();
     }
 
-
-
-    private void listenForPendingAnswer(CompletableFuture<Boolean> resultFuture) {
-        resultFuture.thenAcceptAsync(success -> {
-            if (success) {
-                //notify();
-            } else {
-                //notify();
-            }
-        });
-    }
-
-    private CompletableFuture<Void> notifya() {
+    private void notify() {
         return CompletableFuture.runAsync(() -> {
             // Implementa la logica di notifica qui
         });
