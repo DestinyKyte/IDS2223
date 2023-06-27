@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.loyaltyPlatform.campaign;
+package it.unicam.cs.ids.loyaltyPlatform.message;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,24 +7,28 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 
-import java.util.List;
+import java.time.Period;
+import java.util.Date;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Campaign {
+public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE) // genera in sequenza gli id
     private Long id;
 
-    private List<Long> messages;
+    private Set<Long> target;
 
-    private List<Long> shops;
+    private String content;
 
-    @Value("$some.key:false")
-    private boolean isPublished;
+    // TODO problemi con l'optional
+    private Period frequency;
+
+    // TODO problemi con l'optional
+    private Date date;
 }

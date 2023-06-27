@@ -6,9 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data // genera in automatico i getter/setter
 @NoArgsConstructor // genera in automatico il costruttore che inizializza tutti i campi
 @AllArgsConstructor // genera in automatico il costruttore vuoto
+@Data // genera in automatico i getter/setter
 public class Shop {
 
     @Id
@@ -21,6 +21,6 @@ public class Shop {
 
     private String phoneNumber;
 
-    // TODO upload del file per i legal terms
+    // TODO upload del file per i legalTerms
 
 }
