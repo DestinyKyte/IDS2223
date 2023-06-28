@@ -1,6 +1,8 @@
 package it.unicam.cs.ids.loyaltyPlatform.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +24,7 @@ public class MessageService {
     }
 
     public Message modifyMessage(Long id, Message message){
+        // TODO il messaggio si puo' modificare solo se non appartiene ad alcuna campagna
         Message messageToUpdate = this.messageRepository.findById(id).orElseThrow();
         messageToUpdate.setTarget(message.getTarget());
         messageToUpdate.setContent(message.getContent());
@@ -30,7 +33,10 @@ public class MessageService {
         return this.messageRepository.save(messageToUpdate);
     }
 
-    public void deleteMessage(Long id){
+    public ResponseEntity<Message> deleteMessage(Long id){
+        // TODO il messaggio si puo' eliminare solo se non appartiene ad alcuna campagna
+        Message message = this.messageRepository.findById(id).orElseThrow();
         this.messageRepository.deleteById(id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }

@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.loyaltyPlatform.employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,7 +31,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employees/{id}")
-    public void deleteEmployee(@PathVariable Long id){
-        this.employeeService.deleteEmployee(id);
+    public ResponseEntity<Employee> deleteEmployee(@PathVariable Long id){
+        return this.employeeService.deleteEmployee(id);
     }
 }

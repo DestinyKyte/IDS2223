@@ -10,27 +10,27 @@ public class EmailController {
     private EmailService emailService;
 
     @GetMapping("/emailMessages")
-    public Iterable<Email> getAllEmailMessages(){
-        return this.emailService.getAllEmailMessages();
+    public Iterable<Email> getAllEmails(){
+        return this.emailService.getAllEmails();
     }
 
     @PostMapping("/emailMessages")
-    public Email createEmailMessage(@RequestBody Email email){
-        return this.emailService.createEmailMessage(email);
+    public Email createEmail(@RequestBody Email email){
+        return this.emailService.createEmail(email);
     }
 
     @GetMapping("/emailMessages/{id}")
-    public Email getEmailMessage(@PathVariable Long id){
-        return this.emailService.getEmailMessage(id);
+    public Email getEmail(@PathVariable Long id){
+        return this.emailService.getEmail(id);
     }
 
     @PutMapping("/emailMessages/{id}")
-    public Email modifyEmailMessage(@PathVariable Long id, @RequestBody Email email){
-        return this.emailService.modifyEmailMessage(id, email);
+    public Email modifyEmail(@PathVariable Long id, @RequestBody Email email){
+        return this.emailService.modifyEmail(id, email);
     }
 
     @DeleteMapping("/emailMessages/{id}")
-    public void deleteEmailMessage(@PathVariable Long id){
-        this.emailService.deleteEmailMessage(id);
+    public void deleteEmail(@PathVariable Long id){
+        this.emailService.deleteEmail(id);
     }
 }

@@ -1,7 +1,11 @@
 package it.unicam.cs.ids.loyaltyPlatform.campaign;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CampaignService {
@@ -28,13 +32,18 @@ public class CampaignService {
         return this.campaignRepository.save(campaignToUpdate);
     }
 
-    public void deleteCampaign(Long id){
+    public ResponseEntity<Campaign> deleteCampaign(Long id){
+        Campaign campaign = this.campaignRepository.findById(id).orElseThrow();
         this.campaignRepository.deleteById(id);
+        return new ResponseEntity<>(campaign, HttpStatus.OK);
     }
 
-    public Campaign changeStatusCampaign(Long id){
-        Campaign campaignToChange = this.campaignRepository.findById(id).orElseThrow();
-        campaignToChange.setPublished(true);
-        return this.campaignRepository.save(campaignToChange);
+    public Campaign publishCampaign(Long id, List<Long> shops){
+        Campaign campaignToUpdate = this.campaignRepository.findById(id).orElseThrow();
+        campaignToUpdate.setShops(shops);
+        campaignToUpdate.setPublished(true);
+        // TODO ogni messaggio la cui frequenza e' diversa da Period.ZERO si iscrive al Sender
+        // TODO se esiste almeno un messaggio la cui data di spedizione e' istantanea allora il messaggio viene spedito dopo la pubblicazione della campagna
+        return this.campaignRepository.save(campaignToUpdate);
     }
 }

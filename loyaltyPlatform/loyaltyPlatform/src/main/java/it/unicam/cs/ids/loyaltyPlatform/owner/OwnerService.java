@@ -1,7 +1,10 @@
 package it.unicam.cs.ids.loyaltyPlatform.owner;
 
 import it.unicam.cs.ids.loyaltyPlatform.LoyaltyPlatformApplication;
+import it.unicam.cs.ids.loyaltyPlatform.shop.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,8 +44,10 @@ public class OwnerService {
         return null;
     }
 
-    public void deleteOwner(String vatNumber){
+    public ResponseEntity<Owner> deleteOwner(String vatNumber){
+        Owner owner = this.ownerRepository.findById(vatNumber).orElseThrow();
         this.ownerRepository.deleteById(vatNumber);
+        return new ResponseEntity<>(owner, HttpStatus.OK);
     }
 
     // TODO metodi implementati da Dumitru

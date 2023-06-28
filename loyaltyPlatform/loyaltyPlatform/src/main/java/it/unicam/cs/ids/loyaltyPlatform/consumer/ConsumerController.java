@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.loyaltyPlatform.consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,7 +31,7 @@ public class ConsumerController {
     }
 
     @DeleteMapping("/consumers/{id}")
-    public void deleteConsumer(@PathVariable Long id){
-        this.consumerService.deleteConsumer(id);
+    public ResponseEntity<Consumer> deleteConsumer(@PathVariable Long id){
+        return this.consumerService.deleteConsumer(id);
     }
 }

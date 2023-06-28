@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Period;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Set;
 
 @Entity
@@ -26,9 +26,7 @@ public class Message {
 
     private String content;
 
-    // TODO problemi con l'optional
     private Period frequency;
 
-    // TODO problemi con l'optional
-    private Date date;
+    private Calendar date;
 }
