@@ -30,7 +30,7 @@ public class EmailController {
     }
 
     @DeleteMapping("/emailMessages/{id}")
-    public void deleteEmail(@PathVariable Long id){
-        this.emailService.deleteEmail(id);
+    public Email deleteEmail(@PathVariable Long id){
+        return this.emailService.deleteEmail(id);
     }
 }

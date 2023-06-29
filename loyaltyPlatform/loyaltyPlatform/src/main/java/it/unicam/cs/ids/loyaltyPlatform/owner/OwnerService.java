@@ -2,8 +2,6 @@ package it.unicam.cs.ids.loyaltyPlatform.owner;
 
 import it.unicam.cs.ids.loyaltyPlatform.LoyaltyPlatformApplication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -19,7 +17,8 @@ public class OwnerService {
     }
 
     public Owner createOwner(Owner owner){
-        if(this.checkCredentials(owner.getUsername(), owner.getPassword())){
+        if(this.checkCredentials(owner.getUsername(), owner.getPassword()) && owner.getShops().size()>=2){
+            // TODO simulare pagamento
             return this.ownerRepository.save(owner);
         }
         return null;
@@ -31,7 +30,7 @@ public class OwnerService {
 
     public Owner modifyOwner(String vatNumber, Owner owner){
         Owner ownerToUpdate = this.ownerRepository.findById(vatNumber).orElseThrow();
-        if(this.checkCredentials(owner.getUsername(), owner.getPassword())){
+        if(this.checkCredentials(owner.getUsername(), owner.getPassword()) && owner.getShops().size()>=2){
             ownerToUpdate.setUsername(owner.getUsername());
             ownerToUpdate.setPassword(owner.getPassword());
             ownerToUpdate.setVatNumber(owner.getVatNumber());
@@ -45,10 +44,10 @@ public class OwnerService {
         return null;
     }
 
-    public ResponseEntity<Owner> deleteOwner(String vatNumber){
+    public Owner deleteOwner(String vatNumber){
         Owner owner = this.ownerRepository.findById(vatNumber).orElseThrow();
         this.ownerRepository.deleteById(vatNumber);
-        return new ResponseEntity<>(owner, HttpStatus.OK);
+        return owner;
     }
 
     private boolean checkCredentials(String username, String password){

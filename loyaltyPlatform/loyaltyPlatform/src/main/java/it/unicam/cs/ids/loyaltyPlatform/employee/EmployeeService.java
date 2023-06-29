@@ -2,8 +2,6 @@ package it.unicam.cs.ids.loyaltyPlatform.employee;
 
 import it.unicam.cs.ids.loyaltyPlatform.LoyaltyPlatformApplication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -18,6 +16,7 @@ public class EmployeeService {
         return this.employeeRepository.findAll();
     }
 
+    // TODO gli employee vengono creati alla creazione delle credenziali
     public Employee createEmployee(Employee employee){
         if(this.checkCredentials(employee.getUsername(), employee.getPassword())){
             return this.employeeRepository.save(employee);
@@ -41,10 +40,10 @@ public class EmployeeService {
         return null;
     }
 
-    public ResponseEntity<Employee> deleteEmployee(Long id){
+    public Employee deleteEmployee(Long id){
         Employee employee = this.employeeRepository.findById(id).orElseThrow();
         this.employeeRepository.deleteById(id);
-        return new ResponseEntity<>(employee, HttpStatus.OK);
+        return employee;
     }
 
     private boolean checkCredentials(String username, String password){

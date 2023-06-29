@@ -1,8 +1,6 @@
 package it.unicam.cs.ids.loyaltyPlatform.shop;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,10 +29,10 @@ public class ShopService {
         return this.shopRepository.save(shopToUpdate);
     }
 
-    public ResponseEntity<Shop> deleteShop(Long id){
+    public Shop deleteShop(Long id){
         Shop shop = this.shopRepository.findById(id).orElseThrow();
         this.shopRepository.deleteById(id);
-        return new ResponseEntity<>(shop, HttpStatus.OK);
+        return shop;
     }
 
 }

@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.loyaltyPlatform.campaign;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class CampaignController {
     }
 
     @DeleteMapping("/campaigns/{id}")
-    public ResponseEntity<Campaign> deleteCampaign(@PathVariable Long id){
+    public Campaign deleteCampaign(@PathVariable Long id){
         return this.campaignService.deleteCampaign(id);
     }
 

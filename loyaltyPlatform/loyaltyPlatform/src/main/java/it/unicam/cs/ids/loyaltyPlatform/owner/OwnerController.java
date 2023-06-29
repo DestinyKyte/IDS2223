@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.loyaltyPlatform.owner;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,7 +30,7 @@ public class OwnerController {
     }
 
     @DeleteMapping("/owners/{vatNumber}")
-    public ResponseEntity<Owner> deleteOwner(@PathVariable String vatNumber){
+    public Owner deleteOwner(@PathVariable String vatNumber){
         return this.ownerService.deleteOwner(vatNumber);
     }
 

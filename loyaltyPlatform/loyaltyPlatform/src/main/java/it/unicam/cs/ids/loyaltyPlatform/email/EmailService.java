@@ -1,8 +1,6 @@
 package it.unicam.cs.ids.loyaltyPlatform.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,10 +34,10 @@ public class EmailService {
         return this.emailRepository.save(emailToUpdate);
     }
 
-    public ResponseEntity<Email> deleteEmail(Long id){
+    public Email deleteEmail(Long id){
         // TODO l'email si puo' cancellare solo se non appartiene a nessuna campagna
         Email email = this.emailRepository.findById(id).orElseThrow();
         this.emailRepository.deleteById(id);
-        return new ResponseEntity<>(email, HttpStatus.OK);
+        return email;
     }
 }

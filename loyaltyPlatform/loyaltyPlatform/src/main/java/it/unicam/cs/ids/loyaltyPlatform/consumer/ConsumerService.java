@@ -2,8 +2,6 @@ package it.unicam.cs.ids.loyaltyPlatform.consumer;
 
 import it.unicam.cs.ids.loyaltyPlatform.LoyaltyPlatformApplication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -44,10 +42,10 @@ public class ConsumerService {
         return null;
     }
 
-    public ResponseEntity<Consumer> deleteConsumer(Long id){
+    public Consumer deleteConsumer(Long id){
         Consumer consumer = this.consumerRepository.findById(id).orElseThrow();
         this.consumerRepository.deleteById(id);
-        return new ResponseEntity<>(consumer, HttpStatus.OK);
+        return consumer;
     }
 
     private boolean checkCredentials(String username, String password){
