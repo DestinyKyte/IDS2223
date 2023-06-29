@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.loyaltyPlatform.consumer;
+package it.unicam.cs.ids.loyaltyPlatform.util;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,23 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Consumer {
+public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private Long campaign;
 
-    private String username;
 
-    private String password;
-
-    private String phoneNumber;
-
-    private String emailAddress;
-
-    private List<Long> payments;
-
-    private String name;
-
-    private String surname;
+    private List<Long> scheduledMessages;
 }

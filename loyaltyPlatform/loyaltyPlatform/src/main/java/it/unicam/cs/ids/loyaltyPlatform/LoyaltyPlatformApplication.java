@@ -13,12 +13,8 @@ public class LoyaltyPlatformApplication {
 		SpringApplication.run(LoyaltyPlatformApplication.class, args);
 	}
 
-	public static boolean checkCredentials(String username, String password){
-		return LoyaltyPlatformApplication.checkUsername(username) && LoyaltyPlatformApplication.checkPassword(password);
-	}
-
 	// TODO non blocca le password senza numeri
-	private static boolean checkPassword(String password){
+	public static boolean checkPassword(String password){
 		Pattern letters = Pattern.compile("[^a-z]");
 		Pattern capitalLetters = Pattern.compile(".*[A-Z].*");
 		Pattern digits = Pattern.compile("[^0-9]");
@@ -34,12 +30,6 @@ public class LoyaltyPlatformApplication {
 				&& hasCapitalLetters.find()
 				&& hasDigits.find()
 				&& hasSpecialCharacters.find();
-	}
-
-	private static boolean checkUsername(String username){
-		// TODO
-		// l'username deve essere unico => ricerca nel db
-		return true;
 	}
 
 }

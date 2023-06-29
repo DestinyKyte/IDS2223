@@ -20,7 +20,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    // TODO per employeeAccount usa il suo id
+    private Long employeeAccount;
 
     private String username;
 

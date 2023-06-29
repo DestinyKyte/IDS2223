@@ -21,11 +21,13 @@ public class Owner {
 
     private String password;
 
-    // TODO personalInfo
-
     private List<Long> payments;
 
     private List<Long> shops;
 
     private List<Long> employeeAccount;
+
+    private String name;
+
+    private String surname;
 }

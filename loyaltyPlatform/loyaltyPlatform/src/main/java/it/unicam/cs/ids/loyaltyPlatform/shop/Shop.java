@@ -21,6 +21,7 @@ public class Shop {
 
     private String phoneNumber;
 
-    // TODO upload del file per i legalTerms
+    // TODO
+    // upload del file per i legalTerms
 
 }

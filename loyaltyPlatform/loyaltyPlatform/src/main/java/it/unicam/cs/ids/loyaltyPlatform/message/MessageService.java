@@ -28,7 +28,9 @@ public class MessageService {
         Message messageToUpdate = this.messageRepository.findById(id).orElseThrow();
         messageToUpdate.setTarget(message.getTarget());
         messageToUpdate.setContent(message.getContent());
+        messageToUpdate.willBeSentAgain(message.willBeSentAgain());
         messageToUpdate.setFrequency(message.getFrequency());
+        messageToUpdate.willBeSentImmediately(message.willBeSentImmediately());
         messageToUpdate.setDate(message.getDate());
         return this.messageRepository.save(messageToUpdate);
     }

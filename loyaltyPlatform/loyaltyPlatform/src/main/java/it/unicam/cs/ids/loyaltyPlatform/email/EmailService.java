@@ -24,16 +24,20 @@ public class EmailService {
     }
 
     public Email modifyEmail(Long id, Email email){
+        // TODO l'email si puo' modificare solo se non appartiene a nessuna campagna
         Email emailToUpdate = this.emailRepository.findById(id).orElseThrow();
         emailToUpdate.setTarget(email.getTarget());
         emailToUpdate.setContent(email.getContent());
+        emailToUpdate.willBeSentAgain(email.willBeSentAgain());
         emailToUpdate.setFrequency(email.getFrequency());
+        emailToUpdate.willBeSentImmediately(email.willBeSentImmediately());
         emailToUpdate.setDate(email.getDate());
         emailToUpdate.setStyling(email.getStyling());
         return this.emailRepository.save(emailToUpdate);
     }
 
     public ResponseEntity<Email> deleteEmail(Long id){
+        // TODO l'email si puo' cancellare solo se non appartiene a nessuna campagna
         Email email = this.emailRepository.findById(id).orElseThrow();
         this.emailRepository.deleteById(id);
         return new ResponseEntity<>(email, HttpStatus.OK);

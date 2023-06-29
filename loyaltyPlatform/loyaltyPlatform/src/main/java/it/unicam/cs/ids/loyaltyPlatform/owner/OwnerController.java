@@ -35,10 +35,5 @@ public class OwnerController {
         return this.ownerService.deleteOwner(vatNumber);
     }
 
-    // TODO metodi implementati da Dumitru
-    /*
-    public void requestToJoinUnion(){}
-
-    public void acceptJoinRequest(){}
-     */
+    // MANCANO DUE METODI IMPLEMENTATI DA DUMITRU E CIO CHE SERVE PER IMPLEMENTARLI
 }

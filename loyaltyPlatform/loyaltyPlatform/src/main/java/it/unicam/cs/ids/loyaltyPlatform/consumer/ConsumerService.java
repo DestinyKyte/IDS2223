@@ -6,20 +6,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
+
 @Service
 public class ConsumerService {
 
     @Autowired
     private ConsumerRepository consumerRepository;
 
-    // TODO riferimento a paymentManager
-
     public Iterable<Consumer> getAllConsumers(){
         return this.consumerRepository.findAll();
     }
 
     public Consumer createConsumer(Consumer consumer){
-        if(LoyaltyPlatformApplication.checkCredentials(consumer.getUsername(), consumer.getPassword())){
+        if(this.checkCredentials(consumer.getUsername(), consumer.getPassword())){
             return this.consumerRepository.save(consumer);
         }
         return null;
@@ -31,10 +31,14 @@ public class ConsumerService {
 
     public Consumer modifyConsumer(Long id, Consumer consumer){
         Consumer consumerToUpdate = this.consumerRepository.findById(id).orElseThrow();
-        if(LoyaltyPlatformApplication.checkCredentials(consumer.getUsername(), consumer.getPassword())){
+        if(this.checkCredentials(consumer.getUsername(), consumer.getPassword())){
             consumerToUpdate.setUsername(consumer.getUsername());
             consumerToUpdate.setPassword(consumer.getPassword());
+            consumerToUpdate.setPhoneNumber(consumer.getPhoneNumber());
+            consumerToUpdate.setEmailAddress(consumer.getEmailAddress());
             consumerToUpdate.setPayments(consumer.getPayments());
+            consumerToUpdate.setName(consumer.getName());
+            consumerToUpdate.setSurname(consumer.getSurname());
             return this.consumerRepository.save(consumerToUpdate);
         }
         return null;
@@ -45,4 +49,15 @@ public class ConsumerService {
         this.consumerRepository.deleteById(id);
         return new ResponseEntity<>(consumer, HttpStatus.OK);
     }
+
+    private boolean checkCredentials(String username, String password){
+        Iterator<Consumer> employeeIterator = this.getAllConsumers().iterator();
+        while(employeeIterator.hasNext()){
+            if(employeeIterator.next().getUsername().equals(username)){
+                return false;
+            }
+        }
+        return LoyaltyPlatformApplication.checkPassword(password);
+    }
+
 }

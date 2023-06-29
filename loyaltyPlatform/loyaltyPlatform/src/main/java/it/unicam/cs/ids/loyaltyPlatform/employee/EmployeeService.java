@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
+
 @Service
 public class EmployeeService {
 
@@ -17,7 +19,7 @@ public class EmployeeService {
     }
 
     public Employee createEmployee(Employee employee){
-        if(LoyaltyPlatformApplication.checkCredentials(employee.getUsername(), employee.getPassword())){
+        if(this.checkCredentials(employee.getUsername(), employee.getPassword())){
             return this.employeeRepository.save(employee);
         }
         return null;
@@ -29,7 +31,8 @@ public class EmployeeService {
 
     public Employee modifyEmployee(Long id, Employee employee){
         Employee employeeToUpdate = this.employeeRepository.findById(id).orElseThrow();
-        if(LoyaltyPlatformApplication.checkCredentials(employee.getUsername(), employee.getPassword())){
+        if(this.checkCredentials(employee.getUsername(), employee.getPassword())){
+            employeeToUpdate.setEmployeeAccount(employee.getEmployeeAccount());
             employeeToUpdate.setUsername(employee.getUsername());
             employeeToUpdate.setPassword(employee.getPassword());
             employeeToUpdate.setNotifications(employee.getNotifications());
@@ -42,5 +45,15 @@ public class EmployeeService {
         Employee employee = this.employeeRepository.findById(id).orElseThrow();
         this.employeeRepository.deleteById(id);
         return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
+
+    private boolean checkCredentials(String username, String password){
+        Iterator<Employee> employeeIterator = this.getAllEmployees().iterator();
+        while(employeeIterator.hasNext()){
+            if(employeeIterator.next().getUsername().equals(username)){
+                return false;
+            }
+        }
+        return LoyaltyPlatformApplication.checkPassword(password);
     }
 }
