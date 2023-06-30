@@ -2,9 +2,11 @@ package it.unicam.cs.ids.loyaltyPlatform.employee;
 
 import it.unicam.cs.ids.loyaltyPlatform.LoyaltyPlatformApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 @Service
 public class EmployeeService {
@@ -17,42 +19,66 @@ public class EmployeeService {
     }
 
     // TODO gli employee vengono creati alla creazione delle credenziali
-    public Employee createEmployee(Employee employee){
+    public ResponseEntity<Employee> createEmployee(Employee employee){
         if(this.checkCredentials(employee.getUsername(), employee.getPassword())){
-            return this.employeeRepository.save(employee);
+            return new ResponseEntity<>(this.employeeRepository.save(employee), HttpStatus.OK);
         }
-        return null;
+        return new ResponseEntity<>(new Employee(), HttpStatus.NOT_ACCEPTABLE);
     }
 
-    public Employee getEmployee(Long id){
-        return this.employeeRepository.findById(id).orElseThrow();
+    public ResponseEntity<Employee> getEmployee(Long id){
+        try{
+            return new ResponseEntity<>(this.employeeRepository.findById(id).orElseThrow(), HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(new Employee(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    public Employee modifyEmployee(Long id, Employee employee){
-        Employee employeeToUpdate = this.employeeRepository.findById(id).orElseThrow();
-        if(this.checkCredentials(employee.getUsername(), employee.getPassword())){
-            employeeToUpdate.setEmployeeAccount(employee.getEmployeeAccount());
-            employeeToUpdate.setUsername(employee.getUsername());
+    public ResponseEntity<Employee> modifyEmployee(Long id, Employee employee){
+        Employee employeeToUpdate;
+        try{
+            employeeToUpdate = this.employeeRepository.findById(id).orElseThrow();
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(new Employee(), HttpStatus.NOT_FOUND);
+        }
+        employeeToUpdate.setEmployeeAccount(employee.getEmployeeAccount());
+        if(!employee.getUsername().equals(employeeToUpdate.getUsername())){
+            if(this.checkUsername(employee.getUsername())){
+                employeeToUpdate.setUsername(employee.getUsername());
+            } else {
+                return new ResponseEntity<>(new Employee(), HttpStatus.NOT_ACCEPTABLE);
+            }
+        }
+        if(LoyaltyPlatformApplication.checkPassword(employee.getPassword())){
             employeeToUpdate.setPassword(employee.getPassword());
-            employeeToUpdate.setNotifications(employee.getNotifications());
-            return this.employeeRepository.save(employeeToUpdate);
+        } else {
+            return new ResponseEntity<>(new Employee(), HttpStatus.NOT_ACCEPTABLE);
         }
-        return null;
+        employeeToUpdate.setNotifications(employee.getNotifications());
+        return new ResponseEntity<>(this.employeeRepository.save(employeeToUpdate), HttpStatus.OK);
     }
 
-    public Employee deleteEmployee(Long id){
-        Employee employee = this.employeeRepository.findById(id).orElseThrow();
+    public ResponseEntity<Employee> deleteEmployee(Long id){
+        Employee employee;
+        try{
+            employee = this.employeeRepository.findById(id).orElseThrow();
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(new Employee(), HttpStatus.NOT_FOUND);
+        }
         this.employeeRepository.deleteById(id);
-        return employee;
+        return new ResponseEntity<>(employee, HttpStatus.OK);
     }
 
     private boolean checkCredentials(String username, String password){
-        Iterator<Employee> employeeIterator = this.getAllEmployees().iterator();
-        while(employeeIterator.hasNext()){
-            if(employeeIterator.next().getUsername().equals(username)){
+        return this.checkUsername(username) && LoyaltyPlatformApplication.checkPassword(password);
+    }
+
+    private boolean checkUsername(String username){
+        for (Employee employee : this.getAllEmployees()) {
+            if (employee.getUsername().equals(username)) {
                 return false;
             }
         }
-        return LoyaltyPlatformApplication.checkPassword(password);
+        return true;
     }
 }

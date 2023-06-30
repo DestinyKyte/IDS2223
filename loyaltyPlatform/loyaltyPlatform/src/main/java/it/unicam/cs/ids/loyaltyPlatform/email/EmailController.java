@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.loyaltyPlatform.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -9,28 +10,28 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @GetMapping("/emailMessages")
+    @GetMapping("/emails")
     public Iterable<Email> getAllEmails(){
         return this.emailService.getAllEmails();
     }
 
-    @PostMapping("/emailMessages")
+    @PostMapping("/emails")
     public Email createEmail(@RequestBody Email email){
         return this.emailService.createEmail(email);
     }
 
-    @GetMapping("/emailMessages/{id}")
-    public Email getEmail(@PathVariable Long id){
+    @GetMapping("/emails/{id}")
+    public ResponseEntity<Email> getEmail(@PathVariable Long id){
         return this.emailService.getEmail(id);
     }
 
-    @PutMapping("/emailMessages/{id}")
-    public Email modifyEmail(@PathVariable Long id, @RequestBody Email email){
+    @PutMapping("/emails/{id}")
+    public ResponseEntity<Email> modifyEmail(@PathVariable Long id, @RequestBody Email email){
         return this.emailService.modifyEmail(id, email);
     }
 
-    @DeleteMapping("/emailMessages/{id}")
-    public Email deleteEmail(@PathVariable Long id){
+    @DeleteMapping("/emails/{id}")
+    public ResponseEntity<Email> deleteEmail(@PathVariable Long id){
         return this.emailService.deleteEmail(id);
     }
 }

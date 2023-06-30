@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.loyaltyPlatform.shop;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,17 +21,17 @@ public class ShopController {
     }
 
     @GetMapping("/shops/{id}") // la variabile fra parentesi graffe e quella in input devono avere lo stesso nome
-    public Shop getShop(@PathVariable Long id){
+    public ResponseEntity<Shop> getShop(@PathVariable Long id){
         return this.shopService.getShop(id);
     }
 
     @PutMapping("/shops/{id}")
-    public Shop modifyShop(@PathVariable Long id, @RequestBody Shop shop){ // L'oggetto che prendo nel body serve per avere le info da modificare
+    public ResponseEntity<Shop> modifyShop(@PathVariable Long id, @RequestBody Shop shop){ // L'oggetto che prendo nel body serve per avere le info da modificare
         return this.shopService.modifyShop(id, shop);
     }
 
     @DeleteMapping("/shops/{id}")
-    public Shop deleteShop(@PathVariable Long id){
+    public ResponseEntity<Shop> deleteShop(@PathVariable Long id){
         return this.shopService.deleteShop(id);
     }
 

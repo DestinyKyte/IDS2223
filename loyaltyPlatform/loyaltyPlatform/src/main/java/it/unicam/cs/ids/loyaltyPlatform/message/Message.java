@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Period;
@@ -14,6 +15,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Message {
 
     @Id
@@ -24,67 +26,13 @@ public class Message {
 
     private String content;
 
-    private boolean willBeSentAgain;
+    private boolean toDeliverAgain;
 
     private Period frequency;
 
-    private boolean willBeSentImmediately;
+    private boolean toDeliverImmediately;
 
     private Calendar date;
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Set<Long> getTarget() {
-        return this.target;
-    }
-
-    public void setTarget(Set<Long> target) {
-        this.target = target;
-    }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public boolean willBeSentAgain() {
-        return this.willBeSentAgain;
-    }
-
-    public void willBeSentAgain(boolean willBeSentAgain) {
-        this.willBeSentAgain = willBeSentAgain;
-    }
-
-    public Period getFrequency() {
-        return this.frequency;
-    }
-
-    public void setFrequency(Period frequency) {
-        this.frequency = frequency;
-    }
-
-    public boolean willBeSentImmediately() {
-        return this.willBeSentImmediately;
-    }
-
-    public void willBeSentImmediately(boolean willBeSentImmediately) {
-        this.willBeSentImmediately = willBeSentImmediately;
-    }
-
-    public Calendar getDate() {
-        return this.date;
-    }
-
-    public void setDate(Calendar date) {
-        this.date = date;
-    }
+    // TODO il getAllMessages restituisce anche le email a causa della relazione di ereditarieta'
 }

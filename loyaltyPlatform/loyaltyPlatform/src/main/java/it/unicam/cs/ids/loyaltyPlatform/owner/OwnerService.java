@@ -2,9 +2,12 @@ package it.unicam.cs.ids.loyaltyPlatform.owner;
 
 import it.unicam.cs.ids.loyaltyPlatform.LoyaltyPlatformApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @Service
 public class OwnerService {
@@ -16,48 +19,79 @@ public class OwnerService {
         return this.ownerRepository.findAll();
     }
 
-    public Owner createOwner(Owner owner){
-        if(this.checkCredentials(owner.getUsername(), owner.getPassword()) && owner.getShops().size()>=2){
-            // TODO simulare pagamento
-            return this.ownerRepository.save(owner);
+    // TODO simulare pagamento
+    public ResponseEntity<Owner> createOwner(Owner owner){
+        try{
+            Objects.requireNonNull(owner.getVatNumber());
+        } catch (NullPointerException e){
+            return new ResponseEntity<>(new Owner(), HttpStatus.NOT_ACCEPTABLE);
         }
-        return null;
-    }
-
-    public Owner getOwner(String vatNumber){
-        return this.ownerRepository.findById(vatNumber).orElseThrow();
-    }
-
-    public Owner modifyOwner(String vatNumber, Owner owner){
-        Owner ownerToUpdate = this.ownerRepository.findById(vatNumber).orElseThrow();
         if(this.checkCredentials(owner.getUsername(), owner.getPassword()) && owner.getShops().size()>=2){
-            ownerToUpdate.setUsername(owner.getUsername());
+            return new ResponseEntity<>(this.ownerRepository.save(owner), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(new Owner(), HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    public ResponseEntity<Owner> getOwner(String vatNumber){
+        try{
+            return new ResponseEntity<>(this.ownerRepository.findById(vatNumber).orElseThrow(), HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(new Owner(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // TODO se voglio modificare gli shops mettendone meno di 2?
+    public ResponseEntity<Owner> modifyOwner(String vatNumber, Owner owner){
+        Owner ownerToUpdate;
+        try{
+            ownerToUpdate = this.ownerRepository.findById(vatNumber).orElseThrow();
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(new Owner(), HttpStatus.NOT_FOUND);
+        }
+        ownerToUpdate.setVatNumber(owner.getVatNumber());
+        // The new username gets checked only if it's different form the old one
+        if(!owner.getUsername().equals(ownerToUpdate.getUsername())) {
+            if (this.checkUsername(owner.getUsername())) {
+                ownerToUpdate.setUsername(owner.getUsername());
+            } else {
+                return new ResponseEntity<>(new Owner(), HttpStatus.NOT_ACCEPTABLE);
+            }
+        }
+        if(LoyaltyPlatformApplication.checkPassword(owner.getPassword()) && owner.getShops().size() >= 2){
             ownerToUpdate.setPassword(owner.getPassword());
-            ownerToUpdate.setVatNumber(owner.getVatNumber());
-            ownerToUpdate.setPayments(owner.getPayments());
             ownerToUpdate.setShops(owner.getShops());
-            ownerToUpdate.setEmployeeAccount(owner.getEmployeeAccount());
-            ownerToUpdate.setName(owner.getName());
-            ownerToUpdate.setSurname(owner.getSurname());
-            return this.ownerRepository.save(ownerToUpdate);
+        } else {
+            return new ResponseEntity<>(new Owner(), HttpStatus.NOT_ACCEPTABLE);
         }
-        return null;
+        ownerToUpdate.setPayments(owner.getPayments());
+        ownerToUpdate.setEmployeeAccount(owner.getEmployeeAccount());
+        ownerToUpdate.setName(owner.getName());
+        ownerToUpdate.setSurname(owner.getSurname());
+        return new ResponseEntity<>(this.ownerRepository.save(ownerToUpdate), HttpStatus.OK);
     }
 
-    public Owner deleteOwner(String vatNumber){
-        Owner owner = this.ownerRepository.findById(vatNumber).orElseThrow();
+    public ResponseEntity<Owner> deleteOwner(String vatNumber){
+        Owner owner;
+        try {
+            owner = this.ownerRepository.findById(vatNumber).orElseThrow();
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(new Owner(), HttpStatus.NOT_FOUND);
+        }
         this.ownerRepository.deleteById(vatNumber);
-        return owner;
+        return new ResponseEntity<>(owner, HttpStatus.OK);
     }
 
     private boolean checkCredentials(String username, String password){
-        Iterator<Owner> employeeIterator = this.getAllOwners().iterator();
-        while(employeeIterator.hasNext()){
-            if(employeeIterator.next().getUsername().equals(username)){
+        return this.checkUsername(username) && LoyaltyPlatformApplication.checkPassword(password);
+    }
+
+    private boolean checkUsername(String username){
+        for (Owner owner : this.getAllOwners()) {
+            if (owner.getUsername().equals(username)) {
                 return false;
             }
         }
-        return LoyaltyPlatformApplication.checkPassword(password);
+        return true;
     }
 
     // MANCANO DUE METODI IMPLEMENTATI DA DUMITRU E CIO CHE SERVE PER IMPLEMENTARLI

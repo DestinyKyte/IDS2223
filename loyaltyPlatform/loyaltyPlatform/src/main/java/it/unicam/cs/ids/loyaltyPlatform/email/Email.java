@@ -16,6 +16,7 @@ import java.io.File;
 @EqualsAndHashCode(callSuper = true)
 public class Email extends Message {
 
-    // lo styling di un email e' un file html
-    private File styling;
+    // TODO
+    // upload del file per lo style
+    private File style;
 }

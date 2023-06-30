@@ -2,9 +2,11 @@ package it.unicam.cs.ids.loyaltyPlatform.consumer;
 
 import it.unicam.cs.ids.loyaltyPlatform.LoyaltyPlatformApplication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 @Service
 public class ConsumerService {
@@ -16,46 +18,70 @@ public class ConsumerService {
         return this.consumerRepository.findAll();
     }
 
-    public Consumer createConsumer(Consumer consumer){
+    public ResponseEntity<Consumer> createConsumer(Consumer consumer){
         if(this.checkCredentials(consumer.getUsername(), consumer.getPassword())){
-            return this.consumerRepository.save(consumer);
+            return new ResponseEntity<Consumer>(this.consumerRepository.save(consumer), HttpStatus.OK);
         }
-        return null;
+        return new  ResponseEntity<Consumer>(new Consumer(), HttpStatus.NOT_ACCEPTABLE);
     }
 
-    public Consumer getConsumer(Long id){
-        return this.consumerRepository.findById(id).orElseThrow();
+    public ResponseEntity<Consumer> getConsumer(Long id){
+        try{
+            return new ResponseEntity<>(this.consumerRepository.findById(id).orElseThrow(), HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<Consumer>(new Consumer(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    public Consumer modifyConsumer(Long id, Consumer consumer){
-        Consumer consumerToUpdate = this.consumerRepository.findById(id).orElseThrow();
-        if(this.checkCredentials(consumer.getUsername(), consumer.getPassword())){
-            consumerToUpdate.setUsername(consumer.getUsername());
+    public ResponseEntity<Consumer> modifyConsumer(Long id, Consumer consumer){
+        Consumer consumerToUpdate;
+        try{
+            consumerToUpdate = this.consumerRepository.findById(id).orElseThrow();
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<Consumer>(new Consumer(), HttpStatus.NOT_FOUND);
+        }
+        if(!consumer.getUsername().equals(consumerToUpdate.getUsername())){
+            if(this.checkUsername(consumer.getUsername())){
+                consumerToUpdate.setUsername(consumer.getUsername());
+            } else {
+                return new ResponseEntity<>(new Consumer(), HttpStatus.NOT_ACCEPTABLE);
+            }
+        }
+        if(LoyaltyPlatformApplication.checkPassword(consumer.getPassword())){
             consumerToUpdate.setPassword(consumer.getPassword());
-            consumerToUpdate.setPhoneNumber(consumer.getPhoneNumber());
-            consumerToUpdate.setEmailAddress(consumer.getEmailAddress());
-            consumerToUpdate.setPayments(consumer.getPayments());
-            consumerToUpdate.setName(consumer.getName());
-            consumerToUpdate.setSurname(consumer.getSurname());
-            return this.consumerRepository.save(consumerToUpdate);
+        } else {
+            return new ResponseEntity<>(new Consumer(), HttpStatus.NOT_ACCEPTABLE);
         }
-        return null;
+        consumerToUpdate.setPhoneNumber(consumer.getPhoneNumber());
+        consumerToUpdate.setEmailAddress(consumer.getEmailAddress());
+        consumerToUpdate.setPayments(consumer.getPayments());
+        consumerToUpdate.setName(consumer.getName());
+        consumerToUpdate.setSurname(consumer.getSurname());
+        return new ResponseEntity<>(this.consumerRepository.save(consumerToUpdate), HttpStatus.OK);
     }
 
-    public Consumer deleteConsumer(Long id){
-        Consumer consumer = this.consumerRepository.findById(id).orElseThrow();
+    public ResponseEntity<Consumer> deleteConsumer(Long id){
+        Consumer consumer;
+        try{
+            consumer = this.consumerRepository.findById(id).orElseThrow();
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<Consumer>(new Consumer(), HttpStatus.NOT_FOUND);
+        }
         this.consumerRepository.deleteById(id);
-        return consumer;
+        return new ResponseEntity<>(consumer, HttpStatus.OK);
     }
 
     private boolean checkCredentials(String username, String password){
-        Iterator<Consumer> employeeIterator = this.getAllConsumers().iterator();
-        while(employeeIterator.hasNext()){
-            if(employeeIterator.next().getUsername().equals(username)){
+        return this.checkUsername(username) && LoyaltyPlatformApplication.checkPassword(password);
+    }
+
+    private boolean checkUsername(String username){
+        for (Consumer consumer : this.getAllConsumers()) {
+            if (consumer.getUsername().equals(username)) {
                 return false;
             }
         }
-        return LoyaltyPlatformApplication.checkPassword(password);
+        return true;
     }
 
 }

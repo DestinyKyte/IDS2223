@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.loyaltyPlatform.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,17 +21,17 @@ public class MessageController {
     }
 
     @GetMapping("/messages/{id}")
-    public Message getMessage(@PathVariable Long id){
+    public ResponseEntity<Message> getMessage(@PathVariable Long id){
         return this.messageService.getMessage(id);
     }
 
     @PutMapping("/messages/{id}")
-    public Message modifyMessage(@PathVariable Long id, @RequestBody Message message){
+    public ResponseEntity<Message> modifyMessage(@PathVariable Long id, @RequestBody Message message){
         return this.messageService.modifyMessage(id, message);
     }
 
     @DeleteMapping("/messages/{id}")
-    public Message deleteMessage(@PathVariable Long id){
+    public ResponseEntity<Message> deleteMessage(@PathVariable Long id){
         return this.messageService.deleteMessage(id);
     }
 }

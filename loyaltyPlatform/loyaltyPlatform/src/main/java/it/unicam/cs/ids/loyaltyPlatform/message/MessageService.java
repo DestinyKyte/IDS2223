@@ -1,7 +1,11 @@
 package it.unicam.cs.ids.loyaltyPlatform.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
 
 @Service
 public class MessageService {
@@ -17,26 +21,40 @@ public class MessageService {
         return this.messageRepository.save(message);
     }
 
-    public Message getMessage(Long id){
-        return this.messageRepository.findById(id).orElseThrow();
+    public ResponseEntity<Message> getMessage(Long id){
+        try{
+            return new ResponseEntity<>(this.messageRepository.findById(id).orElseThrow(), HttpStatus.OK);
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(new Message(), HttpStatus.NOT_FOUND);
+        }
     }
 
-    public Message modifyMessage(Long id, Message message){
-        // TODO il messaggio si puo' modificare solo se non appartiene ad alcuna campagna
-        Message messageToUpdate = this.messageRepository.findById(id).orElseThrow();
+    // TODO il messaggio si puo' modificare solo se non appartiene ad alcuna campagna oppure se appartiene ad una campagna privata
+    public ResponseEntity<Message> modifyMessage(Long id, Message message){
+        Message messageToUpdate;
+        try{
+            messageToUpdate = this.messageRepository.findById(id).orElseThrow();
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(new Message(), HttpStatus.NOT_FOUND);
+        }
         messageToUpdate.setTarget(message.getTarget());
         messageToUpdate.setContent(message.getContent());
-        messageToUpdate.willBeSentAgain(message.willBeSentAgain());
+        messageToUpdate.setToDeliverAgain(message.isToDeliverAgain());
         messageToUpdate.setFrequency(message.getFrequency());
-        messageToUpdate.willBeSentImmediately(message.willBeSentImmediately());
+        messageToUpdate.setToDeliverImmediately(message.isToDeliverImmediately());
         messageToUpdate.setDate(message.getDate());
-        return this.messageRepository.save(messageToUpdate);
+        return new ResponseEntity<>(this.messageRepository.save(messageToUpdate), HttpStatus.OK);
     }
 
-    public Message deleteMessage(Long id){
-        // TODO il messaggio si puo' eliminare solo se non appartiene ad alcuna campagna
-        Message message = this.messageRepository.findById(id).orElseThrow();
+    // TODO il messaggio si puo' modificare solo se non appartiene ad alcuna campagna oppure se appartiene ad una campagna privata
+    public ResponseEntity<Message> deleteMessage(Long id){
+        Message message;
+        try {
+            message = this.messageRepository.findById(id).orElseThrow();
+        } catch (NoSuchElementException e){
+            return new ResponseEntity<>(new Message(), HttpStatus.NOT_FOUND);
+        }
         this.messageRepository.deleteById(id);
-        return message;
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 }
