@@ -1,11 +1,12 @@
-package it.unicam.cs.ids.loyaltyPlatform.shop;
+package it.unicam.cs.ids.loyaltyPlatform.consumer;
 
 import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
 @Entity
-public class Shop {
+@NoArgsConstructor
 
+public class Consumer {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
@@ -18,5 +19,4 @@ public class Shop {
     public void setId(Long id) {
         this.id = id;
     }
-//da aggiungere sono i termini legali e informazioni essenziali
 }

@@ -1,15 +1,16 @@
-package it.unicam.cs.ids.loyaltyPlatform.shop;
+package it.unicam.cs.ids.loyaltyPlatform.supermaketCashRegisterSimulator;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
 @Entity
-public class Shop {
-
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
+
+
+    private String category;
 
     public Long getId() {
         return id;
@@ -18,5 +19,12 @@ public class Shop {
     public void setId(Long id) {
         this.id = id;
     }
-//da aggiungere sono i termini legali e informazioni essenziali
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }
