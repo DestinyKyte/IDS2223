@@ -1,7 +1,6 @@
 package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.levelProgram;
 
 import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.LoyaltyProgram;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

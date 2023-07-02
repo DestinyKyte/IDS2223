@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.levelProgram;
 
-import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.cashback.CashbackLoyaltyProgram;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ public class LevelLoyaltyProgramService {
     //#region METHODS
     /**
      * Returns all {@link LevelLoyaltyProgram} from a datasource.
-     * @return all CashbackLoyaltyProgram.
+     * @return all PointLoyaltyProgram.
      */
     public Set<LevelLoyaltyProgram> getAllLevelsLoyaltyPrograms() {
         Iterable<LevelLoyaltyProgram> itr = levelLoyaltyProgramRepository.findAll();

@@ -4,7 +4,7 @@ import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.supportClasses.ProgramTyp
 import jakarta.persistence.*;
 
 @Entity
-public abstract class PremiumLoyaltyProgram {
+public abstract class PremiumLoyaltyProgram{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

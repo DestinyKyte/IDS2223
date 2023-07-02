@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.cashback;
 
+import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.LoyaltyProgram;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class CashbackLoyaltyProgramController {
     }
 
     @GetMapping("/programs")
-    public Set<CashbackLoyaltyProgram> getAllPrograms(){
+    public Set<LoyaltyProgram> getAllPrograms(){
         return cashbackLoyaltyProgramService.getAllPrograms();
     }
     @GetMapping("/program/{id}")

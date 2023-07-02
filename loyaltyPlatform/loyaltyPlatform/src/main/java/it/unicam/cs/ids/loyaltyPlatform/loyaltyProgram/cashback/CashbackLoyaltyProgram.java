@@ -15,14 +15,22 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CashbackLoyaltyProgram extends LoyaltyProgram {
-    private int value;
+    private int cashbackValue;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<ProgramRatio> ratios;
+
+    public Set<ProgramRatio> getRatios() {
+        return ratios;
+    }
 
 
     public int getValue() {
-        return value;
+        return cashbackValue;
     }
 
     public void setValue(int value) {
-        this.value = value;
+        this.cashbackValue = value;
     }
+
 }

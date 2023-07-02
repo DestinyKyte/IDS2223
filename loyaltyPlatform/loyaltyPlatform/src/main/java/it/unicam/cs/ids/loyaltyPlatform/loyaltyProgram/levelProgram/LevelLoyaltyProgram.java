@@ -1,12 +1,11 @@
 package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.levelProgram;
 
 import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.LoyaltyProgram;
-import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.supportClasses.ProgramType;
+import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.supportClasses.ProgramRatio;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,6 +17,13 @@ public class LevelLoyaltyProgram extends LoyaltyProgram {
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Level> levels;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<ProgramRatio> ratios;
+
+    public Set<ProgramRatio> getRatios() {
+        return ratios;
+    }
+
 
     //#region GETTERS AND SETTERS METHOD
     public Set<Level> getLevels() {
@@ -27,5 +33,7 @@ public class LevelLoyaltyProgram extends LoyaltyProgram {
     public void setLevels(Set<Level> levels) {
         this.levels = levels;
     }
+
+
     //#endregion
 }

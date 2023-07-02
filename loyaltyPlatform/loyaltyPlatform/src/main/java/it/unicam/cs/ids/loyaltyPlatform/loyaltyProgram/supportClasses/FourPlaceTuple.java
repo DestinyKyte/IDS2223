@@ -1,12 +1,11 @@
 package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.supportClasses;
 
-public class FourPlaceTuple<A, B, C, D> {
+public class FourPlaceTuple <A,B,C,D>{
     A a;
     B b;
     C c;
     D d;
-
-    public FourPlaceTuple(A a, B b, C c, D d) {
+    public FourPlaceTuple( A a, B b, C c, D d){
         this.a = a;
         this.b = b;
         this.c = c;
