@@ -19,7 +19,9 @@ public class OwnerService {
         return this.ownerRepository.findAll();
     }
 
-    // TODO simulare pagamento
+    // TODO
+    // prima di iscriversi l'owner deve aver pagato
+    // IDEA: controlla la lista pagamenti
     public ResponseEntity<Owner> createOwner(Owner owner){
         try{
             Objects.requireNonNull(owner.getVatNumber());
