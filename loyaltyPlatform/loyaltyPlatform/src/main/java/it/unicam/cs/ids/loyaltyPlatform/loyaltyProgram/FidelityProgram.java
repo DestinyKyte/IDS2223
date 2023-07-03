@@ -1,19 +1,27 @@
 package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram;
 
+import it.unicam.cs.ids.loyaltyPlatform.owner.Owner;
 import it.unicam.cs.ids.loyaltyPlatform.shop.Shop;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 import java.util.List;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "FIDELITY_PROGRAM")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class FidelityProgram {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "fidelity_id")
-    private int fidelityId;
+    private Long fidelityId;
 
     @Column(name = "expiration_start", nullable = false)
     private Date expirationStart;
@@ -27,23 +35,36 @@ public class FidelityProgram {
     @Column(name = "program_type", nullable = false)
     private String programType;
 
+    @Column(name = "can_be_published", columnDefinition = "Boolean default false")
+    private Boolean canBePublished;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Owner owner;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "fidelityProgram")
     private List<Shop> shopList;
 
-    public FidelityProgram() {
-    }
-
-    public FidelityProgram(Date expirationStart, Date expirationFinish, String programType) {
+    public FidelityProgram(Date expirationStart, Date expirationFinish, String programType, List<Shop> shopList, Owner owner) {
         this.expirationStart = expirationStart;
         this.expirationFinish = expirationFinish;
         this.programType = programType;
+        this.shopList = shopList;
+        this.owner = owner;
     }
 
-    public int getFidelityId() {
+    public void setCanBePublished(Boolean canBePublished) {
+        this.canBePublished = canBePublished;
+    }
+
+    public String getName() {
+        return this.fidelityId.toString();
+    }
+
+    public Long getFidelityId() {
         return fidelityId;
     }
 
-    public void setFidelityId(int fidelityId) {
+    public void setFidelityId(Long fidelityId) {
         this.fidelityId = fidelityId;
     }
 
@@ -77,6 +98,18 @@ public class FidelityProgram {
 
     public void setProgramType(String programType) {
         this.programType = programType;
+    }
+
+    public Boolean getCanBePublished() {
+        return canBePublished;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
     public List<Shop> getShopList() {

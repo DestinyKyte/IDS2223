@@ -1,0 +1,18 @@
+TODO
+- Mapping controllare.
+
+- Implementazione delle scadenze nei inviti e nelle richieste.
+- Implementazione del inserimento dei fidelity program dei diversi utenti nel union program.
+- unionProgram --> fidelityProgram
+
+- Implementazione delle notifiche in base alle risposte nel metodo modifyTotalAnswers di pendingAnswers.
+- Visualizza notifiche:
+    1. Creare tabella notifiche;
+    2. Implementare service con rest controller;
+    3. Collegamento con question.
+
+- Creazione profili da titolare con credenziali dipendenti:
+    1. Schema tipo profili;
+    2. Creare etichette ed assegnarle ai metodi;
+    3. Creazione profili;
+    4. Creazione account per profili.

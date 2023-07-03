@@ -2,9 +2,14 @@ package it.unicam.cs.ids.loyaltyPlatform.owner;
 
 import it.unicam.cs.ids.loyaltyPlatform.shop.Shop;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "OWNER")
 public class Owner {
@@ -22,17 +27,16 @@ public class Owner {
     @Column(name = "personal_info")
     private String personalInfo;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "partitaIva")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "owner")
+    @Column(name = "shops")
     private List<Shop> shopList;
 
-    public Owner() {
-    }
-
-    public Owner(String partitaIva, String username, String password, String personalInfo) {
+    public Owner(String partitaIva, String username, String password, String personalInfo, List<Shop> shopList) {
         this.partitaIva = partitaIva;
         this.username = username;
         this.password = password;
         this.personalInfo = personalInfo;
+        this.shopList = shopList;
     }
 
     public String getPartitaIva() {

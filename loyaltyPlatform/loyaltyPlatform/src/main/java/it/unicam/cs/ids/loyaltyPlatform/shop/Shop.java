@@ -4,8 +4,6 @@ import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.FidelityProgram;
 import it.unicam.cs.ids.loyaltyPlatform.owner.Owner;
 import jakarta.persistence.*;
 
-import java.io.File;
-
 @Entity
 @Table(name = "SHOP")
 public class Shop {

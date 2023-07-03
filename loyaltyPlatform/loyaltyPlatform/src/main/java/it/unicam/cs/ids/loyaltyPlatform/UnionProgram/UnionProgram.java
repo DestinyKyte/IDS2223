@@ -1,24 +1,29 @@
-package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram;
+package it.unicam.cs.ids.loyaltyPlatform.UnionProgram;
 
+import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.FidelityProgram;
 import it.unicam.cs.ids.loyaltyPlatform.owner.Owner;
+import it.unicam.cs.ids.loyaltyPlatform.shop.Shop;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import java.sql.Date;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "UNION_PROGRAM")
 public class UnionProgram extends FidelityProgram {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "union_id")
-    private Integer id;
-
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "program_list_id")
     private List<FidelityProgram> programList;
-
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
@@ -28,18 +33,11 @@ public class UnionProgram extends FidelityProgram {
     )
     private List<Owner> members;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "unionProgram")
-    private List<UnionProgramPendingAnswers> pendingAnswersList;
-
-    public UnionProgram() {
-    }
-
-    public UnionProgram(List<FidelityProgram> programList) {
+    public UnionProgram(List<FidelityProgram> programList, List<Owner> members,
+                        Date expirationStart, Date expirationFinish, String programType, List<Shop> shopList, Owner owner) {
+        super(expirationStart, expirationFinish, programType, shopList, owner);
+        this.members = members;
         this.programList = programList;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public List<FidelityProgram> getProgramList() {
@@ -58,4 +56,3 @@ public class UnionProgram extends FidelityProgram {
         this.members = members;
     }
 }
-
