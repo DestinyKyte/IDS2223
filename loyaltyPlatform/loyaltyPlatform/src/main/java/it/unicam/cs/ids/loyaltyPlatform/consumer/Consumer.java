@@ -1,9 +1,7 @@
 package it.unicam.cs.ids.loyaltyPlatform.consumer;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import it.unicam.cs.ids.loyaltyPlatform.payment.Payment;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +26,8 @@ public class Consumer {
 
     private String emailAddress;
 
-    private List<Long> payments;
+    @OneToMany
+    private List<Payment> payments;
 
     private String name;
 

@@ -1,9 +1,7 @@
 package it.unicam.cs.ids.loyaltyPlatform.employee;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import it.unicam.cs.ids.loyaltyPlatform.notification.Notification;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +23,6 @@ public class Employee {
     private String username;
 
     private String password;
-
-    private List<Long> notifications;
+    @OneToMany
+    private List<Notification> notifications;
 }

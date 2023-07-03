@@ -1,9 +1,8 @@
 package it.unicam.cs.ids.loyaltyPlatform.campaign;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import it.unicam.cs.ids.loyaltyPlatform.message.Message;
+import it.unicam.cs.ids.loyaltyPlatform.shop.Shop;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,10 +19,10 @@ public class Campaign {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE) // genera in sequenza gli id
     private Long id;
-
-    private List<Long> messages;
-
-    private List<Long> shops;
+    @OneToMany
+    private List<Message> messages;
+    @OneToMany
+    private List<Shop> shops;
 
     @Value("$some.key:false")
     private boolean isPublished;

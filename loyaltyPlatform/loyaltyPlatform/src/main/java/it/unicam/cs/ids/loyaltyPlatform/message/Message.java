@@ -1,9 +1,7 @@
 package it.unicam.cs.ids.loyaltyPlatform.message;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import it.unicam.cs.ids.loyaltyPlatform.consumer.Consumer;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +20,8 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.SEQUENCE) // genera in sequenza gli id
     private Long id;
 
-    private Set<Long> target;
+    @OneToMany
+    private Set<Consumer> target;
 
     private String content;
 

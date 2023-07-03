@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.loyaltyPlatform.plan;
 
+import it.unicam.cs.ids.loyaltyPlatform.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,9 +36,9 @@ public class Deliver {
         this.planRepository.deleteById(campaign);
     }
 
-    public void putIntoPlan(Long campaign, Long message){
+    public void putIntoPlan(Long campaign, Message message){
         if(this.planRepository.findById(campaign).isEmpty()){
-            ArrayList<Long> plannedMessages = new ArrayList<>();
+            ArrayList<Message> plannedMessages = new ArrayList<>();
             plannedMessages.add(message);
             this.planRepository.save(new Plan(campaign, plannedMessages));
             System.out.println();

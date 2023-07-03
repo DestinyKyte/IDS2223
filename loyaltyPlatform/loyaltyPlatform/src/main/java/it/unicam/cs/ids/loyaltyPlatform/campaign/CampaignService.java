@@ -85,13 +85,13 @@ public class CampaignService {
 
         // Right after publishing the campaign, the method puts the messages into the plan
         Message auxMessage;
-        for(Long messageId : campaignToUpdate.getMessages()){
-            auxMessage = Objects.requireNonNull(this.messageService.getMessage(messageId).getBody());
+        for(Message message : campaignToUpdate.getMessages()){
+            auxMessage = Objects.requireNonNull(this.messageService.getMessage(message.getId()).getBody());
             if(auxMessage.isToDeliverAgain() || !auxMessage.isToDeliverImmediately()){
-                this.deliver.putIntoPlan(id, messageId);
+                this.deliver.putIntoPlan(id, message);
             }
             if(auxMessage.isToDeliverImmediately()){
-                this.deliver.deliverNow(messageId);
+                this.deliver.deliverNow(message.getId());
             }
         }
 

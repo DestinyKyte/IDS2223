@@ -1,9 +1,7 @@
 package it.unicam.cs.ids.loyaltyPlatform.plan;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import it.unicam.cs.ids.loyaltyPlatform.message.Message;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +18,6 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long campaign;
 
-
-    private List<Long> plannedMessages;
+    @OneToMany
+    private List<Message> plannedMessages;
 }

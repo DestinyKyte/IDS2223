@@ -1,7 +1,12 @@
 package it.unicam.cs.ids.loyaltyPlatform.owner;
 
+import it.unicam.cs.ids.loyaltyPlatform.employee.Employee;
+import it.unicam.cs.ids.loyaltyPlatform.employeeAccount.EmployeeAccount;
+import it.unicam.cs.ids.loyaltyPlatform.payment.Payment;
+import it.unicam.cs.ids.loyaltyPlatform.shop.Shop;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,11 +26,14 @@ public class Owner {
 
     private String password;
 
-    private List<Long> payments;
+    @OneToMany
+    private List<Payment> payments;
 
-    private List<Long> shops;
+    @OneToMany
+    private List<Shop> shops;
 
-    private List<Long> employeeAccount;
+    @OneToMany
+    private List<EmployeeAccount> employeeAccount;
 
     private String name;
 
