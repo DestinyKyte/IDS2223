@@ -3,6 +3,7 @@ package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.programRatio;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity(name = "ratios")
@@ -24,8 +25,8 @@ public class ProgramRatio{
     @Column(name = "ratioParameterDiscountPercentage")
     private int parameterValueOfDiscountInPercentage;
     @Column(name = "categoryAppliedTo")
-    private String applicableToCategoryOfProduct;
+    private String categoryApplicableTo;
     @Temporal(TemporalType.DATE)
-    private Date applicableDate;
+    private LocalDate applicableDate;
 
 }

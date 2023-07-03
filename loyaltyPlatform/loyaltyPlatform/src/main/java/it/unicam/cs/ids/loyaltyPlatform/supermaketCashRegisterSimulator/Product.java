@@ -1,8 +1,14 @@
 package it.unicam.cs.ids.loyaltyPlatform.supermaketCashRegisterSimulator;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,29 +18,4 @@ public class Product{
     @JoinColumn(name = "category_id")
     private Category category;
     private float price;
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
 }

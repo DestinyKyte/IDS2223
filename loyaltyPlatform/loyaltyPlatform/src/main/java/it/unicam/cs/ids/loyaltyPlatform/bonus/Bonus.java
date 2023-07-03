@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -18,15 +19,16 @@ public class Bonus {
     private Long id;
 
     private float discountPercentage;
-    private Date bonusApplicableDate;
+    private LocalDate bonusApplicableDate;
     private Long loyaltyProgramId;
     private float bonusRewardToExpensePercentage;
     private String itemCategoryTag;
     private int itemID;
 
-    public Bonus(float bonusDiscountPercentage, float bonusRewardToExpensePercentage, Date bonusApplicableDate, String itemCategoryTag) {
+    public Bonus(float bonusDiscountPercentage, float bonusRewardToExpensePercentage, LocalDate bonusApplicableDate, String itemCategoryTag) {
         this.bonusRewardToExpensePercentage = bonusRewardToExpensePercentage;
         this.discountPercentage = bonusDiscountPercentage;
         this.bonusApplicableDate = bonusApplicableDate;
+        this.itemCategoryTag = itemCategoryTag;
     }
 }

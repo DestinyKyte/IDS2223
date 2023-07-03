@@ -21,7 +21,7 @@ public abstract class LoyaltyProgram {
     @Basic(fetch = FetchType.LAZY)
     protected boolean publishedStatus;
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false, columnDefinition = "DateTime")
+    @Column(nullable = true, columnDefinition = "DateTime")
     protected Date programExpirationDate; //YYYY-MM-DD
 
 
