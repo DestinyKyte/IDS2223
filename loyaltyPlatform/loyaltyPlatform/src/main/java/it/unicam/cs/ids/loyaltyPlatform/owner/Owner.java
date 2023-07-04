@@ -1,6 +1,5 @@
 package it.unicam.cs.ids.loyaltyPlatform.owner;
 
-import it.unicam.cs.ids.loyaltyPlatform.employee.Employee;
 import it.unicam.cs.ids.loyaltyPlatform.employeeAccount.EmployeeAccount;
 import it.unicam.cs.ids.loyaltyPlatform.payment.Payment;
 import it.unicam.cs.ids.loyaltyPlatform.shop.Shop;
@@ -32,8 +31,9 @@ public class Owner {
     @OneToMany
     private List<Shop> shops;
 
-    @OneToMany
+    /*@OneToMany
     private List<EmployeeAccount> employeeAccount;
+     */
 
     private String name;
 
