@@ -31,7 +31,7 @@ public class UnionProgramPendingAnswers {
     @Column(name = "block")
     private Boolean block;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "union_program")
     private UnionProgram unionProgram;
 

@@ -3,9 +3,7 @@ package it.unicam.cs.ids.loyaltyPlatform.owner;
 import it.unicam.cs.ids.loyaltyPlatform.employeeAccount.EmployeeAccount;
 import it.unicam.cs.ids.loyaltyPlatform.payment.Payment;
 import it.unicam.cs.ids.loyaltyPlatform.shop.Shop;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,10 +23,10 @@ public class Owner {
 
     private String password;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Payment> payments;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Shop> shops;
 
     /*@OneToMany

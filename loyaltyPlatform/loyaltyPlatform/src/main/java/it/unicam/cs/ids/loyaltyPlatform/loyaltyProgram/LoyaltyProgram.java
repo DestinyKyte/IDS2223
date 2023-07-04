@@ -1,5 +1,6 @@
 package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram;
 
+import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.programRatio.ProgramRatio;
 import it.unicam.cs.ids.loyaltyPlatform.shop.Shop;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,5 +35,8 @@ public class LoyaltyProgram {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "loyaltyprogram_id_to_shop")
     protected Set<Shop> assignedToShop;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private Set<ProgramRatio> ratios;
 
 }

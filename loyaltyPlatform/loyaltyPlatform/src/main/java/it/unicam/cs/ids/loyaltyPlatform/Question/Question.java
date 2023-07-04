@@ -51,5 +51,7 @@ public class Question {
         this.senderDate = senderDate;
         this.pendingAnswers = pendingAnswers;
         this.message = message;
+        this.hasAnswer = false;
+        this.answer =false;
     }
 }

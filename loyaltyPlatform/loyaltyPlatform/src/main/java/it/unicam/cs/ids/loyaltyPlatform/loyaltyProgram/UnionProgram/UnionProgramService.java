@@ -21,15 +21,17 @@ public class UnionProgramService {
     private UnionProgramRepository unionProgramRepository;
     @Autowired
     private OwnerService ownerService;
-    @Autowired @Lazy
+    @Autowired
+    @Lazy
     private UnionProgramPendingAnswersService unionProgramPendingAnswersService;
-    @Autowired @Lazy
-    private  QuestionService questionService;
+    @Autowired
+    @Lazy
+    private QuestionService questionService;
 
     public UnionProgram createUnionProgram(UnionProgram unionProgram) {
-        return this.unionProgramRepository.save(unionProgram);
-        ///this.sendInvitation(unionProgram);
-        //return unionProgram;
+        this.unionProgramRepository.save(unionProgram);
+        this.sendInvitation(unionProgram);
+        return unionProgram;
     }
 
     public Boolean modifyUnionProgram(Long unionId, List<Owner> listOwner, List<LoyaltyProgram> fidelityProgramList) {
@@ -57,10 +59,10 @@ public class UnionProgramService {
     }
 
     public Iterable<UnionProgram> getAllUnionPrograms() {
-        return  this.unionProgramRepository.findAll();
+        return this.unionProgramRepository.findAll();
     }
 
-    public Boolean addOwnerUnionProgram( UnionProgram unionProgram, String sender) {
+    public Boolean addOwnerUnionProgram(UnionProgram unionProgram, String sender) {
         List<Owner> ownerList = unionProgram.getMembers();
         Owner owner = ownerService.getOwner(sender).getBody();
         ownerList.add(owner);
@@ -69,7 +71,7 @@ public class UnionProgramService {
         return true;
     }
 
-    public void sendInvitation(UnionProgram unionProgram){
+    public void sendInvitation(UnionProgram unionProgram) {
         List<Owner> owners = unionProgram.getMembers();
         UnionProgramPendingAnswers unionProgramPendingAnswers = unionProgramPendingAnswersService.
                 createUnionProgramPendingAnswers(false, unionProgram.getId());
