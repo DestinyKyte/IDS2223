@@ -19,9 +19,11 @@ public class Campaign {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE) // genera in sequenza gli id
     private Long id;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Message> messages;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Shop> shops;
 
     @Value("$some.key:false")

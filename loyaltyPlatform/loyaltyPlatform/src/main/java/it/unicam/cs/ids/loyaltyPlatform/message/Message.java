@@ -20,7 +20,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.SEQUENCE) // genera in sequenza gli id
     private Long id;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Consumer> target;
 
     private String content;

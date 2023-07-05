@@ -29,9 +29,8 @@ public class Owner {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Shop> shops;
 
-    /*@OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<EmployeeAccount> employeeAccount;
-     */
 
     private String name;
 

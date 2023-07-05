@@ -73,7 +73,7 @@ public class OwnerService {
             return new ResponseEntity<>(new Owner(), HttpStatus.NOT_ACCEPTABLE);
         }
         ownerToUpdate.setPayments(owner.getPayments());
-        //ownerToUpdate.setEmployeeAccount(owner.getEmployeeAccount());
+        ownerToUpdate.setEmployeeAccount(owner.getEmployeeAccount());
         ownerToUpdate.setName(owner.getName());
         ownerToUpdate.setSurname(owner.getSurname());
         return new ResponseEntity<>(this.ownerRepository.save(ownerToUpdate), HttpStatus.OK);
@@ -102,6 +102,4 @@ public class OwnerService {
         }
         return true;
     }
-
-    // MANCANO DUE METODI IMPLEMENTATI DA DUMITRU E CIO CHE SERVE PER IMPLEMENTARLI
 }

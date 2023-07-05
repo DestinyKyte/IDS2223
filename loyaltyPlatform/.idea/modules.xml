@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/it.unicam.cs.ids.loyaltyPlatform.main~1.iml" filepath="$PROJECT_DIR$/.idea/modules/it.unicam.cs.ids.loyaltyPlatform.main~1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/loyaltyPlatform.iml" filepath="$PROJECT_DIR$/.idea/loyaltyPlatform.iml" />
     </modules>
   </component>
 </project>

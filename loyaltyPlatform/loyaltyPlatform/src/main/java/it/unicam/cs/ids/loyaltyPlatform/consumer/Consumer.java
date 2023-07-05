@@ -26,7 +26,7 @@ public class Consumer {
 
     private String emailAddress;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Payment> payments;
 
     private String name;

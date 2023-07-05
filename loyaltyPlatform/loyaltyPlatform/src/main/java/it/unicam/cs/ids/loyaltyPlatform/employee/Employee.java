@@ -23,6 +23,7 @@ public class Employee {
     private String username;
 
     private String password;
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Notification> notifications;
 }
