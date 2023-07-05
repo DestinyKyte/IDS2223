@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity(name = "ratios")
 @Data
 public class ProgramRatio{
+
     //TODO add a list of products to which the ratio applies.
     @Id
     @GeneratedValue(generator = "ratios_id_generator",strategy = GenerationType.SEQUENCE)
@@ -24,8 +24,10 @@ public class ProgramRatio{
 
     @Column(name = "ratioParameterDiscountPercentage")
     private int parameterValueOfDiscountInPercentage;
+
     @Column(name = "categoryAppliedTo")
     private String categoryApplicableTo;
+
     @Temporal(TemporalType.DATE)
     private LocalDate applicableDate;
 

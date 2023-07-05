@@ -5,7 +5,6 @@ import java.util.Set;
 public class ProgramRatioService {
 
     public Set<ProgramRatio> createRatios(){
-
      return null;
     }
 }

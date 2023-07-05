@@ -1,6 +1,8 @@
 package it.unicam.cs.ids.loyaltyPlatform.owner;
 
 import it.unicam.cs.ids.loyaltyPlatform.LoyaltyPlatformApplication;
+import it.unicam.cs.ids.loyaltyPlatform.shop.Shop;
+import it.unicam.cs.ids.loyaltyPlatform.shop.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +16,15 @@ public class OwnerService {
 
     @Autowired
     private OwnerRepository ownerRepository;
+    @Autowired
+    private ShopService shopService;
 
     public Iterable<Owner> getAllOwners(){
         return this.ownerRepository.findAll();
     }
 
     // TODO
-    // prima di iscriversi l'owner deve aver pagato
+    // prima d'iscriversi l'owner deve aver pagato
     // IDEA: controlla la lista pagamenti
     public ResponseEntity<Owner> createOwner(Owner owner){
         try{
@@ -28,7 +32,10 @@ public class OwnerService {
         } catch (NullPointerException e){
             return new ResponseEntity<>(new Owner(), HttpStatus.NOT_ACCEPTABLE);
         }
-        if(this.checkCredentials(owner.getUsername(), owner.getPassword()) && owner.getShops().size()>=2){
+        if (this.checkCredentials(owner.getUsername(), owner.getPassword()) && owner.getShops().size()>=2){
+            for(Shop shop : owner.getShops()){
+                this.shopService.createShop(shop);
+            }
             return new ResponseEntity<>(this.ownerRepository.save(owner), HttpStatus.OK);
         }
         return new ResponseEntity<>(new Owner(), HttpStatus.NOT_ACCEPTABLE);
@@ -66,7 +73,7 @@ public class OwnerService {
             return new ResponseEntity<>(new Owner(), HttpStatus.NOT_ACCEPTABLE);
         }
         ownerToUpdate.setPayments(owner.getPayments());
-        ownerToUpdate.setEmployeeAccount(owner.getEmployeeAccount());
+        //ownerToUpdate.setEmployeeAccount(owner.getEmployeeAccount());
         ownerToUpdate.setName(owner.getName());
         ownerToUpdate.setSurname(owner.getSurname());
         return new ResponseEntity<>(this.ownerRepository.save(ownerToUpdate), HttpStatus.OK);
