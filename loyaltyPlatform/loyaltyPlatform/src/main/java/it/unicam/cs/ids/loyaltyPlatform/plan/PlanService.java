@@ -43,14 +43,14 @@ public class Deliver {
             this.planRepository.save(new Plan(campaign, plannedMessages));
             System.out.println();
             System.out.println("==================================================");
-            System.out.println("=> message " + message + " put into a NEW plan");
+            System.out.println("=> message " + message.getId() + " put into a NEW plan");
             System.out.println("==================================================");
         } else {
             Plan plan = this.planRepository.findById(campaign).orElseThrow();
             plan.getPlannedMessages().add(message);
             System.out.println();
             System.out.println("==================================================");
-            System.out.println("=> message " + message + " put into a plan");
+            System.out.println("=> message " + message.getId() + " put into a plan");
             System.out.println("==================================================");
         }
     }
