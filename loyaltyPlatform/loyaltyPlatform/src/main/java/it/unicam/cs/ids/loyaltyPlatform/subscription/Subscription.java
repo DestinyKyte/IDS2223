@@ -1,14 +1,10 @@
 package it.unicam.cs.ids.loyaltyPlatform.subscription;
 
 import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.levelProgram.Level;
-import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.pointsProgram.Points;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Formula;
-
-import java.awt.*;
 
 @Entity
 @Table(name = "subscription")
@@ -22,9 +18,13 @@ public class Subscription {
     @SequenceGenerator(name = "Subscription_id_generator")
     private Long id;
     private Long consumerID;
-    private Long LoyaltyProgramID;
+    private Long loyaltyProgramID;
     private int points;
-    @ManyToOne
+    @OneToOne
     private Level level;
 
+    public Subscription(Long programID, Long consumerID){
+        this.loyaltyProgramID = programID;
+        this.consumerID = consumerID;
+    }
 }

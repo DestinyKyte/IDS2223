@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.loyaltyPlatform.Question;
+package it.unicam.cs.ids.loyaltyPlatform.question;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

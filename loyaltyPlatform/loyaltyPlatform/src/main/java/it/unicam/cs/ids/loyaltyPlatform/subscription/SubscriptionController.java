@@ -31,9 +31,9 @@ public class SubscriptionController {
         return subscriptionService.createSubscription(subscription);
     }
 
-    @PostMapping("/create-subscription/subs")
-    public Subscription createSubscription(@RequestBody LoyaltyProgram program, @RequestBody Consumer consumer){
-        return subscriptionService.createSubscription(program, consumer);
+    @PostMapping("/create-subscription/sub")
+    public Subscription createSubscriptionViaID(@RequestParam Long programID, @RequestParam Long consumerID){
+        return subscriptionService.createSubscriptionFromID(programID, consumerID);
     }
 
     @PutMapping("/update-subscription/{id}")

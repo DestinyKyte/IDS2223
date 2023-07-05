@@ -20,10 +20,10 @@ public class Bonus {
 
     private float discountPercentage;
     private LocalDate bonusApplicableDate;
-    private Long loyaltyProgramId;
+    private Long loyaltyProgramID;
     private float bonusRewardToExpensePercentage;
     private String itemCategoryTag;
-    private int itemID;
+    private Long itemID;
 
     public Bonus(float bonusDiscountPercentage, float bonusRewardToExpensePercentage, LocalDate bonusApplicableDate, String itemCategoryTag) {
         this.bonusRewardToExpensePercentage = bonusRewardToExpensePercentage;

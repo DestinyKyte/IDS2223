@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 @Service
-public class Deliver {
+public class PlanService {
 
     @Autowired
     private PlanRepository planRepository;
 
-    public Deliver(){
+    public PlanService(){
         // TODO
         // dopo la creazione rimane attivo su un suo thread per controllare se ci sono messaggi da inviare
     }

@@ -1,4 +1,4 @@
-package it.unicam.cs.ids.loyaltyPlatform.Question;
+package it.unicam.cs.ids.loyaltyPlatform.question;
 
 import it.unicam.cs.ids.loyaltyPlatform.PendingAnswers.UnionProgramPendingAnswers;
 import it.unicam.cs.ids.loyaltyPlatform.PendingAnswers.UnionProgramPendingAnswersService;

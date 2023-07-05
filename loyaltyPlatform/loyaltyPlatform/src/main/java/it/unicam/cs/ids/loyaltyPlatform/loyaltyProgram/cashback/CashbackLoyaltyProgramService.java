@@ -14,12 +14,10 @@ import java.util.stream.StreamSupport;
 @Service
 public class CashbackLoyaltyProgramService{
     private final CashbackLoyaltyProgramRepository cashbackLoyaltyProgramRepository;
-    private final BonusRepository bonusRepository;
     private final BonusService bonusService;
 
-    public CashbackLoyaltyProgramService(CashbackLoyaltyProgramRepository cashbackLoyaltyProgramRepository, BonusRepository bonusRepository, BonusService bonusService) {
+    public CashbackLoyaltyProgramService(CashbackLoyaltyProgramRepository cashbackLoyaltyProgramRepository,  BonusService bonusService) {
         this.cashbackLoyaltyProgramRepository = cashbackLoyaltyProgramRepository;
-        this.bonusRepository = bonusRepository;
         this.bonusService = bonusService;
     }
 

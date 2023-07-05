@@ -1,13 +1,11 @@
 package it.unicam.cs.ids.loyaltyPlatform.subscription;
 
-import it.unicam.cs.ids.loyaltyPlatform.consumer.Consumer;
 import it.unicam.cs.ids.loyaltyPlatform.consumer.ConsumerService;
-import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.LoyaltyProgram;
+import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.LoyaltyProgramService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 import java.util.Set;
@@ -16,12 +14,17 @@ import java.util.stream.StreamSupport;
 
 @Service
 public class SubscriptionService {
+    private final LoyaltyProgramService loyaltyProgramService;
     private final ConsumerService consumerService;
     private final SubscriptionRepository subscriptionRepository;
-    public SubscriptionService(ConsumerService consumerService, SubscriptionRepository subscriptionRepository){
+    public SubscriptionService(LoyaltyProgramService loyaltyProgramService,
+                               ConsumerService consumerService,
+                               SubscriptionRepository subscriptionRepository){
+        this.loyaltyProgramService = loyaltyProgramService;
         this.consumerService = consumerService;
         this.subscriptionRepository = subscriptionRepository;
     }
+
 
     /**
      * If both the proposed subscription has both the consumer and the program that are valid
@@ -31,14 +34,16 @@ public class SubscriptionService {
      * @return A new subscription if it is valid. Meaning both party's IDs exists. Else return null.
      */
     public Subscription createSubscription(Subscription subscription){
-        if(subscriptionRepository.findById(subscription.getConsumerID()).isPresent()
-                && subscriptionRepository.findById(subscription.getLoyaltyProgramID()).isPresent())
+        if(consumerService.getConsumer(subscription.getConsumerID()) != null
+                && loyaltyProgramService.verifyIfExists(subscription.getLoyaltyProgramID()))
             return subscriptionRepository.save(subscription);
         return null;
     }
 
-    @PostMapping("/create-subscription")
-    public Subscription createSubscription(@RequestBody LoyaltyProgram program, Consumer consumer){
+    public Subscription createSubscriptionFromID(@RequestParam Long program, @RequestParam Long consumer){
+        if(consumerService.getConsumer(consumer) != null
+                && loyaltyProgramService.verifyIfExists(program))
+            return subscriptionRepository.save(new Subscription(program, consumer));
         return null;
     }
 
@@ -49,6 +54,10 @@ public class SubscriptionService {
      */
     public Optional<Subscription> getSubscription(Long id) {
         return subscriptionRepository.findById(id);
+    }
+
+    public Subscription getSubscriptionByConsumer(Long consumerID, Long productID){
+        return subscriptionRepository.findSubscriptionByConsumerIDAndAndLoyaltyProgramID(consumerID, productID);
     }
 
     /**

@@ -1,6 +1,7 @@
 package it.unicam.cs.ids.loyaltyPlatform.bonus;
 
 import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.LoyaltyProgram;
+import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.LoyaltyProgramService;
 import it.unicam.cs.ids.loyaltyPlatform.subscription.SubscriptionService;
 import it.unicam.cs.ids.loyaltyPlatform.supermaketCashRegisterSimulator.Product;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,12 @@ import java.util.Set;
 
 @Service
 public class BonusService{
+    private final LoyaltyProgramService loyaltyProgramService;
     private final SubscriptionService subscriptionService;
     private final BonusRepository bonusRepository;
 
-    public BonusService(SubscriptionService subscriptionService, BonusRepository bonusRepository) {
+    public BonusService(LoyaltyProgramService loyaltyProgramService, SubscriptionService subscriptionService, BonusRepository bonusRepository) {
+        this.loyaltyProgramService = loyaltyProgramService;
         this.subscriptionService = subscriptionService;
         this.bonusRepository = bonusRepository;
     }
@@ -43,11 +46,11 @@ public class BonusService{
     private Set<Bonus> extractBonusFromProgram(Long programID) {
         // TODO will have to swap from bonusRepository since i no longer have to persist a bonus
         Set<Bonus> bonuses = new HashSet<>();
-        bonusRepository.findLoyaltyProgramBonusCreationDTOValuesByID(programID).forEach(dto -> {
+        loyaltyProgramService.getBonusCreationDTOsFromProgram(programID).forEach(dto -> {
             Bonus bonus = new Bonus(dto.getDiscountPercentage() / 100F,
                             dto.getBenefit()/100F,
                             dto.getDate(), dto.getCategory());
-            bonus.setLoyaltyProgramId(programID);
+            bonus.setLoyaltyProgramID(programID);
             bonuses.add(bonus);
         });
         return bonuses;

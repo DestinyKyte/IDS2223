@@ -2,7 +2,7 @@ package it.unicam.cs.ids.loyaltyPlatform.campaign;
 
 import it.unicam.cs.ids.loyaltyPlatform.message.Message;
 import it.unicam.cs.ids.loyaltyPlatform.message.MessageService;
-import it.unicam.cs.ids.loyaltyPlatform.plan.Deliver;
+import it.unicam.cs.ids.loyaltyPlatform.plan.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class CampaignService {
     private MessageService messageService;
 
     @Autowired
-    private Deliver deliver;
+    private PlanService planService;
 
     public Iterable<Campaign> getAllCampaigns(){
         return this.campaignRepository.findAll();
@@ -64,7 +64,7 @@ public class CampaignService {
         } catch (NoSuchElementException e){
             return new ResponseEntity<>(new Campaign(), HttpStatus.NOT_FOUND);
         }
-        this.deliver.deletePlan(campaign.getId());
+        this.planService.deletePlan(campaign.getId());
         this.campaignRepository.deleteById(id);
         return new ResponseEntity<>(campaign, HttpStatus.OK);
     }
@@ -88,10 +88,10 @@ public class CampaignService {
         for(Message message : campaignToUpdate.getMessages()){
             auxMessage = Objects.requireNonNull(this.messageService.getMessage(message.getId()).getBody());
             if(auxMessage.isToDeliverAgain() || !auxMessage.isToDeliverImmediately()){
-                this.deliver.putIntoPlan(id, message);
+                this.planService.putIntoPlan(id, message);
             }
             if(auxMessage.isToDeliverImmediately()){
-                this.deliver.deliverNow(message.getId());
+                this.planService.deliverNow(message.getId());
             }
         }
 

@@ -2,7 +2,7 @@ package it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.UnionProgram;
 
 import it.unicam.cs.ids.loyaltyPlatform.PendingAnswers.UnionProgramPendingAnswers;
 import it.unicam.cs.ids.loyaltyPlatform.PendingAnswers.UnionProgramPendingAnswersService;
-import it.unicam.cs.ids.loyaltyPlatform.Question.QuestionService;
+import it.unicam.cs.ids.loyaltyPlatform.question.QuestionService;
 import it.unicam.cs.ids.loyaltyPlatform.loyaltyProgram.LoyaltyProgram;
 import it.unicam.cs.ids.loyaltyPlatform.owner.Owner;
 import it.unicam.cs.ids.loyaltyPlatform.owner.OwnerService;

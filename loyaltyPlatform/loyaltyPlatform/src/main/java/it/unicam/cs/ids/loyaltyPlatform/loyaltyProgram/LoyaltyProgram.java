@@ -15,7 +15,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class LoyaltyProgram {
+public abstract class LoyaltyProgram {
 
     //#region FIELDS
     @Id

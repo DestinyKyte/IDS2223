@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class PlanController {
 
     @Autowired
-    private Deliver deliver;
+    private PlanService planService;
 
     @GetMapping("/plans")
     public Iterable<Plan> getAllPlans(){
-        return this.deliver.getAllPlans();
+        return this.planService.getAllPlans();
     }
 
     @GetMapping("/plans/{campaign}")
     public ResponseEntity<Plan> getPlan(@PathVariable Long campaign){
-        return this.deliver.getPlan(campaign);
+        return this.planService.getPlan(campaign);
     }
 }
